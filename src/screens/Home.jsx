@@ -13,11 +13,29 @@ export default function Home(props){
 
 	function filterTasks(tasks, option){
 		if(option === 0){
-			return tasks.filter(i => i.days.includes(today))
+			return tasks.filter(i => i.days.includes(today)).map(i => {
+				i.finished = false
+				return i
+			})
 		} else if( option === 1){
-			return tasks
+			return tasks.map(i => {
+				i.finished = false
+				return i
+			})
 		}
 	}
+
+	function toggleComplete(id){
+		for(let i=0; i<ftasks; i++){
+			if(ftasks[i].id === id){
+				ftasks.finished = !ftasks.finished;
+				break
+			}
+		}
+		setFTasks(ftasks)
+	}
+
+	console.log(props.completedTasks)
 
 	useEffect(() => {
 		setFTasks(filterTasks(props.tasks, menuOption))
@@ -28,6 +46,8 @@ export default function Home(props){
 			<Header 
 				menuOption={menuOption}
 				setMenuOption={setMenuOption}
+				completedTasks={props.completedTasks}
+				ftasks={ftasks}
 			/>
 			{
 				props.tasks.length < 1 ?
@@ -40,7 +60,14 @@ export default function Home(props){
 				:
 				<ul>
 				{
-					ftasks.map(i => <Task key={i.id} {...i} selectedList={props.selectedList} setSelectedList={props.setSelectedList} />)
+					ftasks.map(i => 
+						<Task key={i.id} {...i} 
+							selectedList={props.selectedList} 
+							setSelectedList={props.setSelectedList} 
+							completedTasks={props.completedTasks}
+							setCompletedTasks={props.setCompletedTasks}
+							toggleComplete={toggleComplete}
+					/>)
 				}
 				</ul>
 			}

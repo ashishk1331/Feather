@@ -3,7 +3,7 @@ if(getItem('tasks') === null){
 }
 
 if(getItem('tags') === null){
-	setItem('tags', ['work', 'personel', 'office'])
+	setItem('tags', ['work', 'personal', 'office'])
 }
 
 export function getItem(key){

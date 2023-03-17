@@ -1,22 +1,46 @@
+import { CheckIcon } from '@heroicons/react/24/solid'
 import { Circle } from "@phosphor-icons/react";
 import { useState } from 'react'
 import { cn } from '../util/cn'
+import { setItem } from '../util/useStorage'
 
 export default function Task(props){
 
 	const [ finished, setFinished ] = useState(false)
 	const [ selected, setSelected ] = useState(props.selectedList.includes(props.id))
 
+	function setComplete(id){
+		let s = new Set(props.completedTasks)
+		s.add(id)
+		props.setCompletedTasks([ ...s])
+	}
+
+	function setUncomplete(id){
+		let s = new Set(props.completedTasks)
+		if(s.has(id)){
+			s.delete(id)
+		}
+		props.setCompletedTasks([ ...s])
+	}
+
 	return (
 		<li className={cn("flex items-center gap-2 w-full justify-between p-3 border-2 rounded-lg my-4", selected ? "border-black" : "")}>
-			<input 
-				type="checkbox" 
-				name="done" 
-				className="w-6 h-6 mr-2" 
-				onChange={(e) => {
-					setFinished(!finished)
+			<div 
+				className={cn("w-7 min-w-7 min-h-7 h-7 aspect-square rounded border-2 border-black mx-3 cursor-pointer flex items-center", finished ? "bg-[black] text-white" : "")}
+				onClick={(e) => {
+					let n = !finished;
+					setFinished(n)
+					if(n){
+						setComplete(props.id)
+					} else {
+						setUncomplete(props.id)
+					}
 				}}
-			/>
+			>
+				{
+					finished && <CheckIcon className="m-auto fill-white stroke-1 stroke-white" />
+				}
+			</div>
 			<div className="w-full flex flex-col gap-2">
 				<h1 className={cn("text-lg", finished ? 'line-through text-gray-500' : 'no-underline')}>
 					{props.title}
