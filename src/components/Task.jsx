@@ -37,13 +37,13 @@ export default function Task(props){
 				className={cn('ml-auto',selected ? "p-1" : "p-3")}
 				onClick={(e) => {
 					setSelected(!selected)
-					let s = props.selectedList;
-					if(s.includes(props.id)){
-						s = s.filter(i => i !== props.id);
+					let s = new Set(props.selectedList);
+					if(s.has(props.id)){
+						s.delete(props.id);
 					} else {
-						s.push(props.id)
+						s.add(props.id)
 					}
-					props.setSelectedList(s)
+					props.setSelectedList([...s])
 				}}
 			>
 				<Circle 

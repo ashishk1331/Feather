@@ -24,6 +24,20 @@ function Option(props){
 
 export default function Header(props){
 
+	const months = [
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'May',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Oct',
+		'Nov',
+		'Dec',
+	];
 	const options = [
 		{
 			text: 'active',
@@ -37,12 +51,16 @@ export default function Header(props){
 	const menuOption = props.menuOption, setMenuOption = props.setMenuOption;
 	const [ toggleMenu, setToggleMenu ] = useState(false)
 
+	const date = new Date()
+	const today = `${date.getDate()} ${months[date.getMonth()]}`
+
 	return (
 		<div className="relative flex items-center justify-between w-full my-4">
-			<div className="flex flex-col items-center gap-1">
-				<h1 className="text-3xl font-bold leading-9">Tasks
+			<div className="flex flex-col items-left gap-1">
+				<h1 className="text-3xl font-bold leading-9">
+					Today
 				</h1>
-				<p className="text-gray-500">{new Date().toLocaleDateString()}</p>
+				<p className="text-gray-500">{today}</p>
 			</div>
 			<button 
 				className="flex items-center gap-3 p-2 px-4 bg-gray-100 rounded-lg"
