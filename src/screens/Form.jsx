@@ -9,7 +9,7 @@ function cn(...classes){
 
 function Toggler(props){
 
-	const [ selected, setSelected ] = useState(false)
+	const [ selected, setSelected ] = useState(props.selected)
 
 	return (
 		<a 
@@ -93,10 +93,25 @@ export default function Form(props){
 					<div className="flex flex-col gap-1">
 						<p className="w-fit mr-auto">days</p>
 						<div className="flex flex-wrap items-start gap-2">
+							<Toggler 
+								key={'all'} 
+								text={'all'} 
+								selected={days.reduce((prev, curr) => prev && curr, true)}
+								click={() => {
+									let delta = days.reduce((prev, curr) => prev && curr, true)
+									if(delta){
+										setDays(days.map(i => false))
+									} else {
+										setDays(days.map(i => true))
+									}
+									console.log(days)
+								}}
+							/>
 							{
 								daysName.map(i => <Toggler 
 									key={i} 
 									text={i} 
+									selected={days[daysName.indexOf(i)]}
 									click={() => {
 										let ind = daysName.indexOf(i);
 										days[ind] = !days[ind]
