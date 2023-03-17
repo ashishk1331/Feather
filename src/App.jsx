@@ -1,7 +1,8 @@
 import Home from './screens/Home'
 import Form from './screens/Form'
+import Splash from './screens/Splash'
 import { getItem, setItem, removeItem } from './util/useStorage'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function App(props){
 
@@ -20,6 +21,7 @@ export default function App(props){
 
     return (
         <>
+            <Splash />
             <Home 
                 tasks={tasks}
                 setShowAddForm = {setShowAddForm}
