@@ -1,11 +1,8 @@
-import { PlusIcon, XCircleIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { PlusIcon, XCircleIcon, CheckIcon, XMarkIcon, BackspaceIcon } from '@heroicons/react/24/outline'
 import { taskify } from '../schema/Task.js'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { getItem, setItem, removeItem } from '../util/useStorage'
-
-function cn(...classes){
-	return classes.filter(Boolean).join(' ')
-}
+import { cn } from '../util/cn'
 
 function Toggler(props){
 
@@ -28,9 +25,11 @@ function Toggler(props){
 export default function Form(props){
 
 	const [ days, setDays ] = useState([false, false, false, false, false, false, false])
-	const [ tags, setTags ] = useState(['work', 'personel', 'office'])
+	const [ tags, setTags ] = useState(getItem('tags'))
 	const [ activeTags, setActiveTags ] = useState([])
 	const daysName = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+	const [ tagsForm, setTagsForm ] = useState(false)
+	const tagFormInp = useRef();
 
 	function handleSubmit(e){
 		e.preventDefault();
@@ -136,26 +135,61 @@ export default function Form(props){
 									}} 
 								/>)
 							}
-							<a href="#" className="text-black border-2 border-black p-3 rounded-full">
-								<PlusIcon />
+							<a 
+								href="#" 
+								className={cn("border-2 p-3 rounded-full", tagsForm ? "border-black text-black" : " text-gray-300")}
+								onClick={() => {
+									setTagsForm(!tagsForm)
+								}}
+							>
+								{
+									tagsForm ?
+									<XMarkIcon />
+									:
+									<PlusIcon />
+								}
 							</a>
-							{/*<div className="w-full flex items-center gap-1 mt-3">
-								<button className="p-3">
-									<XMarkIcon className="w-6 h-6" />
-								</button>
-								<input 
-									type="text" 
-									name="title"
-									className="border-2 border-gray-200 text-lg w-full rounded-lg p-1 px-4" 
-									placeholder="type here..."
-								/>
-								<button className="p-3">
-									<CheckIcon className="w-6 h-6" />
-								</button>
-							</div>*/}
+							{
+								tagsForm && <div className="w-full flex items-center gap-1 mt-3">
+									<a 
+										className="p-3" 
+										href="#"
+										onClick={(e) => {
+											e.preventDefault();
+											tagFormInp.current.value = '';
+										}}
+									>
+										<BackspaceIcon className="w-6 h-6 rotate-180" />
+									</a>
+									<input 
+										type="text" 
+										name="title"
+										className="border-2 border-gray-200 text-lg w-full rounded-lg p-1 px-4" 
+										placeholder="type here..."
+										ref={tagFormInp}
+									/>
+									<a 
+										className="p-3" 
+										href="#"
+										onClick={(e) => {
+											e.preventDefault();
+											let tag = tagFormInp.current.value
+											// setActiveTags([tag, ...activeTags])
+											setItem('tags', [tag])
+											setTags([tag, ...tags])
+											tagFormInp.current.value = ''
+										}}
+									>
+										<CheckIcon className="w-6 h-6" />
+									</a>
+								</div>
+							}
 						</div>
 					</div>
-					<button className="w-full bg-[#111827] text-white p-4 rounded-lg text-lg font-medium">
+					<button 
+						type="submit" 
+						className="w-full bg-[#111827] text-white p-4 rounded-lg text-lg font-medium"
+					>
 						Add
 					</button>
 				</form>

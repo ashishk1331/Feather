@@ -2,6 +2,10 @@ if(getItem('tasks') === null){
 	setItem('tasks', [])
 }
 
+if(getItem('tags') === null){
+	setItem('tags', ['work', 'personel', 'office'])
+}
+
 export function getItem(key){
 	return JSON.parse(localStorage.getItem(key))
 }

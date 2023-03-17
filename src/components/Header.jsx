@@ -12,6 +12,7 @@ function Option(props){
 			className={cn("p-2 flex items-baseline gap-2", active ? "font-medium" : '')}
 			onClick={() => {
 				props.setMenuOption(props.value)
+				props.setToggleMenu(false)
 			}}
 		>
 			{
@@ -83,7 +84,7 @@ export default function Header(props){
 			{
 				toggleMenu && <div className = "absolute right-0 top-[100%] bg-gray-100 p-4 px-12 rounded-lg flex flex-col items-right gap-2">
 					{
-						options.map(i => <Option key={i.text} {...i} menuOption={menuOption} setMenuOption={setMenuOption}/>)
+						options.map(i => <Option key={i.text} {...i} menuOption={menuOption} setMenuOption={setMenuOption} setToggleMenu={setToggleMenu}/>)
 					}
 				</div>
 			}

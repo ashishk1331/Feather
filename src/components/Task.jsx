@@ -1,9 +1,6 @@
 import { Circle } from "@phosphor-icons/react";
 import { useState } from 'react'
-
-function cn(...classes){
-	return classes.filter(Boolean).join(' ')
-}
+import { cn } from '../util/cn'
 
 export default function Task(props){
 
