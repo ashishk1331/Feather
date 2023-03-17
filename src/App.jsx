@@ -10,9 +10,10 @@ export default function App(props){
     const [ selectedList, setSelectedList ] = useState([]);
 
     function deleteTasks(){
-            console.log(selectedList)
-        if(selectedList.size > 0){
-            setTasks(tasks.filter(i => !selectedList.includes(i.id)))
+        if(selectedList.length > 0){
+            let newList = tasks.filter(i => !selectedList.includes(i.id))
+            setTasks(newList)
+            removeItem('tasks', newList)
             setSelectedList([])
         }
     }

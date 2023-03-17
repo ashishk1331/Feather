@@ -1,5 +1,5 @@
 if(getItem('tasks') === null){
-	setItem('tasks', {})
+	setItem('tasks', [])
 }
 
 export function getItem(key){
@@ -11,9 +11,9 @@ export function setItem(key, value){
 	if(prev === null){
 		prev = []
 	}
-	localStorage.setItem(key, JSON.stringify([value , ...prev]))
+	localStorage.setItem(key, JSON.stringify([...value , ...prev]))
 }
 
-export function removeItem(key) {
-	return localStorage.removeItem(key)
+export function removeItem(key, value) {
+	localStorage.setItem(key, JSON.stringify(value))
 }

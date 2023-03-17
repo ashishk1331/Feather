@@ -33,6 +33,8 @@ export default function Form(props){
 	const daysName = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
 	function handleSubmit(e){
+		e.preventDefault();
+
 		let title = e.target.title.value
 		if(title.length < 1){
 			return;
@@ -52,13 +54,11 @@ export default function Form(props){
 			days: taskDays
 		})
 
-		props.setTasks([task, ...props.tasks ])
+		props.setTasks([task, ...props.tasks])
 
 		props.setShowAddForm(0);
 
-		setItem('tasks', task)
-
-		console.log(task)
+		setItem('tasks', [task])
 	}
 
 
@@ -104,7 +104,6 @@ export default function Form(props){
 									} else {
 										setDays(days.map(i => true))
 									}
-									console.log(days)
 								}}
 							/>
 							{
@@ -116,7 +115,6 @@ export default function Form(props){
 										let ind = daysName.indexOf(i);
 										days[ind] = !days[ind]
 										setDays(days)
-										console.log(days)
 									}}
 								/>)
 							}
@@ -135,8 +133,6 @@ export default function Form(props){
 										} else {
 											setActiveTags([i, ...activeTags ])
 										}
-
-										console.log(activeTags)
 									}} 
 								/>)
 							}

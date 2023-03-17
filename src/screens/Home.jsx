@@ -21,7 +21,7 @@ export default function Home(props){
 
 	useEffect(() => {
 		setFTasks(filterTasks(props.tasks, menuOption))
-	}, [menuOption])
+	}, [menuOption, props.tasks])	
 
 	return (
 		<div className="p-4 px-6 pb-6">

@@ -43,7 +43,6 @@ export default function Task(props){
 					} else {
 						s.push(props.id)
 					}
-
 					props.setSelectedList(s)
 				}}
 			>
