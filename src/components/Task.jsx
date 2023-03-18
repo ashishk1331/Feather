@@ -63,7 +63,7 @@ export default function Task(props){
 					}
 					{
 						props.menuOption === 1 && props.days.length >= 7 && <li key='all' className="text-black p-1 px-3 bg-gray-100 rounded-lg">
-								whole week
+								week
 							</li>
 					}
 				</ul>

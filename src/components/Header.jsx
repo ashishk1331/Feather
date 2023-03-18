@@ -1,8 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
-import { TrophyIcon, CheckBadgeIcon } from '@heroicons/react/24/solid'
-import { Confetti } from '@phosphor-icons/react'
-import { cn } from '../util/cn'
+import { CheckBadgeIcon } from '@heroicons/react/24/solid'
 import { Circle, Dot } from '@phosphor-icons/react'
+import { cn } from '../util/cn'
 import { useState } from 'react'
 
 function Option(props){

@@ -13,7 +13,7 @@ export default function Splash(props){
 	}, [])
 
 	return (
-			splashScreen && <div className="w-screen h-screen absolute inset-0 flex items-center bg-[white] z-[99]">
+			splashScreen && <div className="w-screen min-h-screen absolute top-0 left-0 flex items-center bg-[white] z-[99]">
 				<div className="m-auto flex flex-col items-center gap-8">
 					<Feather className="w-12 h-12" />
 					<div className="w-[250%] h-1 rounded-full bg-gray-200 overflow-hidden">

@@ -82,7 +82,7 @@ export default function Home(props){
 				>
 						<PencilIcon className="w-5 h-5" />
 				</button>
-				<button
+				{/*<button
 					className="p-4 bg-[#111827] rounded-full text-white"
 					onClick={(e) => {
 						props.setSelectedList([])
@@ -90,6 +90,7 @@ export default function Home(props){
 				>
 						<XMarkIcon className="w-5 h-5" />
 				</button>
+				*/}
 				</>
 				:
 				<button 
