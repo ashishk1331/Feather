@@ -6,7 +6,7 @@ import { setItem } from '../util/useStorage'
 
 export default function Task(props){
 
-	const [ finished, setFinished ] = useState(props.completedTasks.includes(props.id))
+	const [ finished, setFinished ] = useState(props.completedTasks.includes(props.id) && props.menuOption === 0)
 	const [ selected, setSelected ] = useState(props.selectedList.includes(props.id))
 
 	function setComplete(id){
@@ -25,24 +25,27 @@ export default function Task(props){
 
 	return (
 		<li className={cn("flex items-center gap-2 w-full justify-between p-3 border-2 rounded-lg my-4", selected ? "border-black" : "")}>
-			<div 
-				className={cn("w-7 min-w-7 min-h-7 h-7 aspect-square rounded border-2 border-black mx-3 cursor-pointer flex items-center", finished ? "bg-[black] text-white" : "")}
-				onClick={(e) => {
-					let n = !finished;
-					setFinished(n)
-					if(n){
-						setComplete(props.id)
-					} else {
-						setUncomplete(props.id)
+			{
+				props.menuOption === 0 &&
+				<div 
+					className={cn("w-7 min-w-7 min-h-7 h-7 aspect-square rounded border-2 border-black mx-3 cursor-pointer flex items-center", finished ? "bg-[black] text-white" : "")}
+					onClick={(e) => {
+						let n = !finished;
+						setFinished(n)
+						if(n){
+							setComplete(props.id)
+						} else {
+							setUncomplete(props.id)
+						}
+					}}
+				>
+					{
+						finished && <CheckIcon className="m-auto fill-white stroke-1 stroke-white" />
 					}
-				}}
-			>
-				{
-					finished && <CheckIcon className="m-auto fill-white stroke-1 stroke-white" />
-				}
-			</div>
+				</div>
+			}
 			<div className="w-full flex flex-col gap-2">
-				<h1 className={cn("text-lg", finished ? 'line-through text-gray-500' : 'no-underline')}>
+				<h1 className={cn("text-lg", props.menuOption === 0 && finished ? 'line-through text-gray-500' : 'no-underline')}>
 					{props.title}
 				</h1>
 				<ul className="flex flex-wrap items-center gap-2">
@@ -51,6 +54,17 @@ export default function Task(props){
 								{i}
 							</li>
 						)
+					}
+					{
+						props.menuOption === 1 && props.days.length < 7 && props.days.map(i => <li key={i} className="text-black p-1 px-3 bg-gray-100 rounded-lg">
+								{i}
+							</li>
+						)
+					}
+					{
+						props.menuOption === 1 && props.days.length >= 7 && <li key='all' className="text-black p-1 px-3 bg-gray-100 rounded-lg">
+								whole week
+							</li>
 					}
 				</ul>
 			</div>

@@ -14,10 +14,11 @@ export default function Home(props){
 
 	function filterTasks(tasks, option){
 		if(option === 0){
-			return tasks.filter(i => i.days.includes(today)).map(i => {
+			let t = tasks.filter(i => i.days.includes(today)).map(i => {
 				i.finished = false
 				return i
 			})
+			return t
 		} else if( option === 1){
 			return tasks.map(i => {
 				i.finished = false
@@ -59,6 +60,7 @@ export default function Home(props){
 							setSelectedList={props.setSelectedList} 
 							completedTasks={props.completedTasks}
 							setCompletedTasks={props.setCompletedTasks}
+							menuOption={menuOption}
 					/>)
 				}
 				</ul>
