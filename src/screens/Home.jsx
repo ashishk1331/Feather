@@ -3,6 +3,7 @@ import Task from '../components/Task'
 import { PlusSmallIcon, TrashIcon, PencilIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { SparklesIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
+import { getItem, setItem, removeItem } from '../util/useStorage'
 
 export default function Home(props){
 
@@ -25,24 +26,16 @@ export default function Home(props){
 		}
 	}
 
-	function toggleComplete(id){
-		for(let i=0; i<ftasks; i++){
-			if(ftasks[i].id === id){
-				ftasks.finished = !ftasks.finished;
-				break
-			}
-		}
-		setFTasks(ftasks)
-	}
-
-	console.log(props.completedTasks)
-
 	useEffect(() => {
 		setFTasks(filterTasks(props.tasks, menuOption))
 	}, [menuOption, props.tasks])	
 
+	useEffect(() => {
+		removeItem('completed', props.completedTasks)
+	}, [props.completedTasks])
+
 	return (
-		<div className="p-4 px-6 pb-6">
+		<div className="p-4 px-6 pb-6 bg-white">
 			<Header 
 				menuOption={menuOption}
 				setMenuOption={setMenuOption}
@@ -66,7 +59,6 @@ export default function Home(props){
 							setSelectedList={props.setSelectedList} 
 							completedTasks={props.completedTasks}
 							setCompletedTasks={props.setCompletedTasks}
-							toggleComplete={toggleComplete}
 					/>)
 				}
 				</ul>

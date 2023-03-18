@@ -6,7 +6,7 @@ import { setItem } from '../util/useStorage'
 
 export default function Task(props){
 
-	const [ finished, setFinished ] = useState(false)
+	const [ finished, setFinished ] = useState(props.completedTasks.includes(props.id))
 	const [ selected, setSelected ] = useState(props.selectedList.includes(props.id))
 
 	function setComplete(id){

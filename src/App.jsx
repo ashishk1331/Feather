@@ -6,10 +6,18 @@ import { useState } from 'react'
 
 export default function App(props){
 
+    function getCompletedTasks(){
+        let prev = getItem('completed')
+        if(prev === null){
+            return []
+        }
+        return prev
+    }
+
     const [ showAddForm, setShowAddForm ] = useState(0);
     const [ tasks, setTasks ] = useState(getItem('tasks').filter(i => i.id !== undefined))
     const [ selectedList, setSelectedList ] = useState([]);
-    const [ completedTasks, setCompletedTasks ] = useState([]);
+    const [ completedTasks, setCompletedTasks ] = useState(getCompletedTasks());
 
     function deleteTasks(){
         if(selectedList.length > 0){
