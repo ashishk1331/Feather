@@ -6,6 +6,10 @@ if(getItem('tags') === null){
 	setItem('tags', ['work', 'personal', 'office'])
 }
 
+if(getItem('date') === null){
+	removeItem('date', [new Date().toJSON()])
+}
+
 export function getItem(key){
 	return JSON.parse(localStorage.getItem(key))
 }

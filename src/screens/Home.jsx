@@ -82,15 +82,6 @@ export default function Home(props){
 				>
 						<PencilIcon className="w-5 h-5" />
 				</button>
-				{/*<button
-					className="p-4 bg-[#111827] rounded-full text-white"
-					onClick={(e) => {
-						props.setSelectedList([])
-					}}
-				>
-						<XMarkIcon className="w-5 h-5" />
-				</button>
-				*/}
 				</>
 				:
 				<button 

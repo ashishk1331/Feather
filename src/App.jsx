@@ -2,7 +2,7 @@ import Home from './screens/Home'
 import Form from './screens/Form'
 import Splash from './screens/Splash'
 import { getItem, setItem, removeItem } from './util/useStorage'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function App(props){
 
@@ -27,6 +27,14 @@ export default function App(props){
             setSelectedList([])
         }
     }
+
+    useEffect(() => {
+        let t = new Date(getItem('date')[0])
+        let n = new Date()
+        if((t.getDay() !== n.getDay()) || (Math.round((n.getTime() - t.getTime())/1000) > 86400)){
+            setCompletedTasks([])
+        }
+    }, [])
 
     return (
         <>

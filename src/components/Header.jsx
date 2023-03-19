@@ -56,7 +56,10 @@ export default function Header(props){
 	const date = new Date()
 	const today = `${date.getDate()} ${months[date.getMonth()].substring(0,3)}`
 
-	const percent = Math.floor((props.completedTasks.length / props.ftasks.length) * 100)
+	let percent = 0
+	if(props.ftasks.length > 0){
+		percent = Math.floor((props.completedTasks.length / props.ftasks.length) * 100)
+	}
 
 	return (
 		<div className="relative flex flex-col items-center gap-3  w-full my-4">
@@ -105,11 +108,11 @@ export default function Header(props){
 						}}
 					/>
 				</div>
-				<p>{props.completedTasks.length} done</p>
+				<p>{props.ftasks.length > 0 ? props.completedTasks.length : 0} done</p>
 			</div>
 			
 			{
-				toggleMenu && <div className = "absolute right-0 top-[50%] mt-3 bg-gray-100 p-4 px-12 rounded-lg flex flex-col items-right gap-2">
+				toggleMenu && <div className = "absolute right-0 top-[50%] mt-3 bg-gray-100 p-4 px-8 rounded-lg flex flex-col items-right gap-2 shadow-xl">
 					{
 						options.map(i => <Option key={i.text} {...i} menuOption={menuOption} setMenuOption={setMenuOption} setToggleMenu={setToggleMenu}/>)
 					}
