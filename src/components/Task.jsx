@@ -4,6 +4,15 @@ import { useState } from 'react'
 import { cn } from '../util/cn'
 import { setItem } from '../util/useStorage'
 
+
+function Tag(props){
+	return (
+		<li className="text-black text-xs p-2 px-3 bg-gray-100 rounded-xl font-medium">
+			{props.text}
+		</li>
+	)
+}
+
 export default function Task(props){
 
 	const [ finished, setFinished ] = useState(props.completedTasks.includes(props.id) && props.menuOption === 0)
@@ -50,21 +59,10 @@ export default function Task(props){
 				</h1>
 				<ul className="flex flex-wrap items-center gap-2">
 					{
-						props.tags.map(i => <li key={i} className="text-black p-1 px-3 bg-gray-100 rounded-lg">
-								{i}
-							</li>
-						)
+						props.tags.map((i, ind) => <Tag key={ind+'a'} text={i} />)
 					}
 					{
-						props.menuOption === 1 && props.days.length < 7 && props.days.map(i => <li key={i} className="text-black p-1 px-3 bg-gray-100 rounded-lg">
-								{i}
-							</li>
-						)
-					}
-					{
-						props.menuOption === 1 && props.days.length >= 7 && <li key='all' className="text-black p-1 px-3 bg-gray-100 rounded-lg">
-								week
-							</li>
+						props.menuOption === 1 && ( props.days.length < 7 ? props.days.map((i, ind) => <Tag key={ind+'b'} text={i} />) :  <Tag key={ind+'c'} text="week" />)
 					}
 				</ul>
 			</div>

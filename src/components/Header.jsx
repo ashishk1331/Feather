@@ -1,6 +1,6 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
-import { CheckBadgeIcon } from '@heroicons/react/24/solid'
-import { Circle, Dot } from '@phosphor-icons/react'
+import { ChevronDownIcon, ChevronUpIcon, Bars3Icon } from '@heroicons/react/24/outline'
+import { CheckBadgeIcon, MoonIcon } from '@heroicons/react/24/solid'
+import { Circle, Dot, Moon } from '@phosphor-icons/react'
 import { cn } from '../util/cn'
 import { useState } from 'react'
 
@@ -62,22 +62,29 @@ export default function Header(props){
 	}
 
 	return (
-		<div className="relative flex flex-col items-center gap-3  w-full my-4">
-			<div className="flex items-left justify-between w-full">
-				<h1 className="text-3xl font-bold leading-9">
+		<div className="relative flex flex-col items-center gap-3 w-full my-4">
+			<div className="flex items-left gap-4 w-full">
+				<button 
+					className="p-2"
+					onClick={() => {
+						props.setToggleSideBar(true)
+					}}
+				>
+					<Bars3Icon className="w-6 h-6" />
+				</button>
+				<h1 className="text-3xl font-bold leading-9 mr-auto -ml-3">
 					{
 						(percent >= 98) ? 
 						<p className="ml-auto flex items-end gap-1">
 							<CheckBadgeIcon weight="fill" className="fill-black w-8 h-8" />
-							{percent}%
+							{percent}% 
 						</p>
 						:
 						'Today'
 					}
 				</h1>
-				
 				<button 
-					className="flex items-center gap-3 p-2 px-4 bg-gray-100 rounded-lg w-fit"
+					className={cn("flex items-center gap-3 p-2 px-4 bg-gray-100 rounded-lg w-fit", toggleMenu ? "shadow-xl" : "")}
 					onClick={() => {
 						setToggleMenu(!toggleMenu)
 				}}>

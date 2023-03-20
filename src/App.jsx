@@ -17,7 +17,7 @@ export default function App(props){
     const [ showAddForm, setShowAddForm ] = useState(0);
     const [ tasks, setTasks ] = useState(getItem('tasks').filter(i => i.id !== undefined))
     const [ selectedList, setSelectedList ] = useState([]);
-    const [ completedTasks, setCompletedTasks ] = useState(getCompletedTasks());
+    const [ completedTasks, setCompletedTasks ] = useState(getCompletedTasks())
 
     function deleteTasks(){
         if(selectedList.length > 0){
