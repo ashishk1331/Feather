@@ -46,6 +46,8 @@ export default function Form(props){
 			}
 		}
 
+		if(taskDays.length < 1 || activeTags.length < 1){ return }
+
 		let task = taskify({
 			tasks: props.tasks,
 			title: title,
@@ -173,7 +175,7 @@ export default function Form(props){
 										href="#"
 										onClick={(e) => {
 											e.preventDefault();
-											let tag = tagFormInp.current.value
+											let tag = tagFormInp.current.value.toLowerCase()
 											// setActiveTags([tag, ...activeTags])
 											setItem('tags', [tag])
 											setTags([tag, ...tags])

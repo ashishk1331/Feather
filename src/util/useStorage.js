@@ -10,6 +10,9 @@ if(getItem('date') === null){
 	removeItem('date', [new Date().toJSON()])
 }
 
+// dev reset ->
+// localStorage.clear()
+
 export function getItem(key){
 	return JSON.parse(localStorage.getItem(key))
 }

@@ -3,6 +3,8 @@ import { CheckBadgeIcon, MoonIcon } from '@heroicons/react/24/solid'
 import { Circle, Dot, Moon } from '@phosphor-icons/react'
 import { cn } from '../util/cn'
 import { useState } from 'react'
+import { getItem } from '../util/useStorage.js'
+import Pill from '../components/Pill'
 
 function Option(props){
 
@@ -52,20 +54,21 @@ export default function Header(props){
 	];
 	const menuOption = props.menuOption, setMenuOption = props.setMenuOption;
 	const [ toggleMenu, setToggleMenu ] = useState(false)
+	const [ tags, setTags ] = useState(getItem('tags'))
 
 	const date = new Date()
 	const today = `${date.getDate()} ${months[date.getMonth()].substring(0,3)}`
 
 	let percent = 0
-	if(props.ftasks.length > 0){
-		percent = Math.floor((props.completedTasks.length / props.ftasks.length) * 100)
+	if(props.tasks.length > 0){
+		percent = Math.floor((props.completedTasks.length / props.tasks.length) * 100)
 	}
 
 	return (
 		<div className="relative flex flex-col items-center gap-3 w-full my-4">
 			<div className="flex items-left gap-4 w-full">
 				<button 
-					className="p-2"
+					className="p-2 pt-0"
 					onClick={() => {
 						props.setToggleSideBar(true)
 					}}
@@ -74,17 +77,17 @@ export default function Header(props){
 				</button>
 				<h1 className="text-3xl font-bold leading-9 mr-auto -ml-3">
 					{
-						(percent >= 98) ? 
-						<p className="ml-auto flex items-end gap-1">
-							<CheckBadgeIcon weight="fill" className="fill-black w-8 h-8" />
-							{percent}% 
+						(percent >= 100) ? 
+						<p className="flex items-center gap-1">
+							<CheckBadgeIcon className="w-6 h-6 " />
+							100%
 						</p>
 						:
 						'Today'
 					}
 				</h1>
 				<button 
-					className={cn("flex items-center gap-3 p-2 px-4 bg-gray-100 rounded-lg w-fit", toggleMenu ? "shadow-xl" : "")}
+					className={cn("flex items-center gap-3 p-2 px-4 bg-white border-2 rounded-lg w-fit", toggleMenu ? "border-black" : "")}
 					onClick={() => {
 						setToggleMenu(!toggleMenu)
 				}}>
@@ -115,11 +118,17 @@ export default function Header(props){
 						}}
 					/>
 				</div>
-				<p>{props.ftasks.length > 0 ? props.completedTasks.length : 0} done</p>
+				<p>{props.tasks.length > 0 ? props.completedTasks.length : 0} done</p>
 			</div>
-			
+			{/*{
+				menuOption === 1 && <ul className="w-full flex items-center gap-3">
+					{
+						tags.map((i, ind) => <Pill text={i} />)
+					}
+				</ul>
+			}*/}
 			{
-				toggleMenu && <div className = "absolute right-0 top-[50%] mt-3 bg-gray-100 p-4 px-8 rounded-lg flex flex-col items-right gap-2 shadow-xl">
+				toggleMenu && <div className = "absolute right-0 top-[50%] mt-3 bg-[white] p-4 px-8 rounded-lg flex flex-col items-right gap-2 shadow-xl">
 					{
 						options.map(i => <Option key={i.text} {...i} menuOption={menuOption} setMenuOption={setMenuOption} setToggleMenu={setToggleMenu}/>)
 					}

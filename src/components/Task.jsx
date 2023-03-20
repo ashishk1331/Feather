@@ -62,7 +62,7 @@ export default function Task(props){
 						props.tags.map((i, ind) => <Tag key={ind+'a'} text={i} />)
 					}
 					{
-						props.menuOption === 1 && ( props.days.length < 7 ? props.days.map((i, ind) => <Tag key={ind+'b'} text={i} />) :  <Tag key={ind+'c'} text="week" />)
+						props.menuOption === 1 && ( props.days.length < 7 ? props.days.map((i, ind) => <Tag key={ind+'b'} text={i} />) :  <Tag key={'c'} text="week" />)
 					}
 				</ul>
 			</div>
