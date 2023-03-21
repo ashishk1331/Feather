@@ -67,15 +67,15 @@ export default function Header(props){
 	return (
 		<div className="relative flex flex-col items-center gap-3 w-full my-4">
 			<div className="flex items-left gap-4 w-full">
-				<button 
+				{/*<button 
 					className="p-2 pt-0"
 					onClick={() => {
 						props.setToggleSideBar(true)
 					}}
 				>
 					<Bars3Icon className="w-6 h-6" />
-				</button>
-				<h1 className="text-3xl font-bold leading-9 mr-auto -ml-3">
+				</button>*/}
+				<h1 className="text-3xl font-bold leading-9 mr-auto">
 					{
 						(percent >= 100) ? 
 						<p className="flex items-center gap-1">

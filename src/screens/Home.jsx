@@ -46,7 +46,7 @@ export default function Home(props){
 			/>
 			<ul>
 			{
-				activeTasks.length > 0 && activeTasks.map(i => 
+				activeTasks.length > 0 ? activeTasks.map(i => 
 					<Task key={i.id} {...i} 
 						selectedList={props.selectedList} 
 						setSelectedList={props.setSelectedList} 
@@ -54,6 +54,13 @@ export default function Home(props){
 						setCompletedTasks={props.setCompletedTasks}
 						menuOption={menuOption}
 				/>)
+				:
+				<li className="w-full h-24 mt-24 flex">
+					<div className="m-auto flex flex-col gap-3 items-left text-xl text-gray-300">
+						<SparklesIcon className="w-8 h-8" />
+						<p>Add a new task</p>
+					</div>
+				</li>
 			}
 			</ul>
 
