@@ -11,7 +11,7 @@ function Toggler(props){
 	return (
 		<a 
 			href="#" 
-			className={cn("text-gray-300 border-2 p-2 px-4 rounded-lg", selected ? 'bg-black dark:bg-gray-100 border-black text-white dark:text-black' : '')}
+			className={cn("text-gray-300 border-2 dark:border-gray-800 p-2 px-4 rounded-lg", selected ? 'bg-black dark:bg-gray-500 border-black text-white dark:text-black' : '')}
 			onClick={() => {
 				setSelected(!selected)
 				props.click()
@@ -87,7 +87,7 @@ export default function Form(props){
 						<input 
 							type="text" 
 							name="title"
-							className="border-2 border-gray-300 bg-transparent text-lg w-full rounded-lg p-2 px-4" 
+							className="border-2 border-gray-300 dark:border-gray-800 bg-transparent text-lg w-full rounded-lg p-2 px-4" 
 							placeholder="type here..."
 						/>
 					</label>
@@ -139,7 +139,7 @@ export default function Form(props){
 							}
 							<a 
 								href="#" 
-								className={cn("border-2 p-3 rounded-full", tagsForm ? "border-black text-black" : " text-gray-300")}
+								className={cn("border-2  p-3 rounded-full", tagsForm ? "border-black text-black dark:text-white dark:border-white" : " text-gray-300 dark:text-gray-500 dark:border-gray-800")}
 								onClick={() => {
 									setTagsForm(!tagsForm)
 								}}
@@ -152,7 +152,7 @@ export default function Form(props){
 								}
 							</a>
 							{
-								tagsForm && <div className="w-full flex items-center gap-1 mt-3">
+								tagsForm && <div className="w-full flex items-center gap-1 mt-3 dark:text-gray-600">
 									<a 
 										className="p-3" 
 										href="#"
@@ -166,7 +166,7 @@ export default function Form(props){
 									<input 
 										type="text" 
 										name="title"
-										className="border-2 border-gray-200 text-lg w-full rounded-lg p-1 px-4" 
+										className="border-2 border-gray-200 dark:border-gray-800 bg-transparent text-lg w-full rounded-lg p-1 px-4" 
 										placeholder="type here..."
 										ref={tagFormInp}
 									/>
@@ -190,7 +190,7 @@ export default function Form(props){
 					</div>
 					<button 
 						type="submit" 
-						className="w-full bg-gray-900 dark:bg-gray-200 text-white dark:text-black p-4 rounded-lg text-lg font-medium"
+						className="w-full bg-gray-900 dark:bg-gray-200 text-white dark:text-black p-4 mt-4 rounded-lg text-lg font-medium"
 					>
 						Add
 					</button>

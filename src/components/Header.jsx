@@ -4,7 +4,9 @@ import { Circle, Dot, Moon } from '@phosphor-icons/react'
 import { cn } from '../util/cn'
 import { useState, useEffect } from 'react'
 import { getItem, removeItem } from '../util/useStorage.js'
-import Pill from '../components/Pill'
+import { blast } from '../util/Confetti'
+import Pill from './Pill'
+
 
 function Option(props){
 
@@ -56,6 +58,7 @@ export default function Header(props){
 	const [ toggleMenu, setToggleMenu ] = useState(false)
 	const [ tags, setTags ] = useState(getItem('tags'))
 	const [ darkMode, setDarkMode ] = useState(getItem('dark-mode'))
+	const [ blasted, setBlasted ] = useState(false)
 
 	const date = new Date()
 	const today = `${date.getDate()} ${months[date.getMonth()].substring(0,3)}`
@@ -63,6 +66,10 @@ export default function Header(props){
 	let percent = 0
 	if(props.tasks.length > 0){
 		percent = Math.floor((props.completedTasks.length / props.tasks.length) * 100)
+		if(percent >= 100 && !blasted && !props.alreadyCompleted){
+			blast()
+			setBlasted(true)
+		}
 	}
 
 	useEffect(() => {

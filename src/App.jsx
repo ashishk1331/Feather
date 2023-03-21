@@ -6,18 +6,10 @@ import { useState, useEffect } from 'react'
 
 export default function App(props){
 
-    function getCompletedTasks(){
-        let prev = getItem('completed')
-        if(prev === null){
-            return []
-        }
-        return prev
-    }
-
     const [ showAddForm, setShowAddForm ] = useState(0);
     const [ tasks, setTasks ] = useState(getItem('tasks').filter(i => i.id !== undefined))
     const [ selectedList, setSelectedList ] = useState([]);
-    const [ completedTasks, setCompletedTasks ] = useState(getCompletedTasks())
+    const [ completedTasks, setCompletedTasks ] = useState(getItem('completed'))
 
     function deleteTasks(){
         if(selectedList.length > 0){
@@ -31,8 +23,10 @@ export default function App(props){
     useEffect(() => {
         let t = new Date(getItem('date')[0])
         let n = new Date()
+        
         if((t.getDay() !== n.getDay()) || (Math.round((n.getTime() - t.getTime())/1000) > 86400)){
             setCompletedTasks([])
+            removeItem('date', [n])
         }
     }, [])
 

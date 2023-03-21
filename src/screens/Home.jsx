@@ -43,6 +43,7 @@ export default function Home(props){
 				completedTasks={props.completedTasks}
 				tasks={activeTasks}
 				setToggleSideBar={setToggleSideBar}
+				alreadyCompleted={ activeTasks.length === getItem('completed').length }
 			/>
 			<ul>
 			{

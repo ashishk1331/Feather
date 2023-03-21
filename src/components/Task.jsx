@@ -48,9 +48,9 @@ export default function Task(props){
 			}
 			<div className="w-full flex flex-col gap-2">
 				<h1 className={cn("text-lg", props.menuOption === 0 && finished ? 'line-through text-gray-500' : 'no-underline')}>
-					{props.title.split(' ').map(i => {
+					{props.title.split(' ').map((i, ind) => {
 						if(i.startsWith('@')){
-							return <p className={cn("inline-block font-extrabold mr-1 underline", finished && props.menuOption === 0 ? "line-through" : "")}>{i.substring(1)}</p>
+							return <p key={ind + '@'} className={cn("rounded dark:text-gray-900 px-[0.25em] inline-block font-medium mr-1", finished && props.menuOption === 0 ? "line-through px-0" : "bg-lime-200")}>{i.substring(1)}</p>
 						}
 						return i + ' '
 					})}
