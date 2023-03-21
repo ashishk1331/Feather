@@ -3,15 +3,8 @@ import { Circle } from "@phosphor-icons/react";
 import { useState } from 'react'
 import { cn } from '../util/cn'
 import { setItem } from '../util/useStorage'
+import Pill from '../components/Pill'
 
-
-function Tag(props){
-	return (
-		<li className="text-black text-xs p-2 px-3 bg-gray-100 rounded-xl font-medium">
-			{props.text}
-		</li>
-	)
-}
 
 export default function Task(props){
 
@@ -33,11 +26,11 @@ export default function Task(props){
 	}
 
 	return (
-		<li className={cn("flex items-center gap-2 w-full justify-between p-3 border-2 rounded-lg my-4", selected ? "border-black" : "")}>
+		<li className={cn("flex items-center gap-2 w-full justify-between p-3 border-2  rounded-lg my-4", selected ? "border-black dark:border-white" : "dark:border-gray-800")}>
 			{
 				props.menuOption === 0 &&
 				<div 
-					className={cn("w-7 min-w-7 min-h-7 h-7 aspect-square rounded border-2 border-black mx-3 cursor-pointer flex items-center", finished ? "bg-[black] text-white" : "")}
+					className={cn("w-7 min-w-7 min-h-7 h-7 aspect-square rounded border-2 border-black dark:border-white mx-3 cursor-pointer flex items-center", finished ? "bg-black text-white dark:bg-white dark:text-black" : "")}
 					onClick={(e) => {
 						let n = !finished;
 						setFinished(n)
@@ -49,7 +42,7 @@ export default function Task(props){
 					}}
 				>
 					{
-						finished && <CheckIcon className="m-auto fill-white stroke-1 stroke-white" />
+						finished && <CheckIcon className="m-auto stroke-1 stroke-white dark:stroke-black" />
 					}
 				</div>
 			}
@@ -57,17 +50,17 @@ export default function Task(props){
 				<h1 className={cn("text-lg", props.menuOption === 0 && finished ? 'line-through text-gray-500' : 'no-underline')}>
 					{props.title.split(' ').map(i => {
 						if(i.startsWith('@')){
-							return <p className="inline-block font-extrabold">{i.substring(1)}</p>
+							return <p className={cn("inline-block font-extrabold mr-1 underline", finished && props.menuOption === 0 ? "line-through" : "")}>{i.substring(1)}</p>
 						}
 						return i + ' '
 					})}
 				</h1>
 				<ul className="flex flex-wrap items-center gap-2">
 					{
-						props.tags.map((i, ind) => <Tag key={ind+'a'} text={i} />)
+						props.tags.map((i, ind) => <Pill key={ind+'a'} text={i} />)
 					}
 					{
-						props.menuOption === 1 && ( props.days.length < 7 ? props.days.map((i, ind) => <Tag key={ind+'b'} text={i} />) :  <Tag key={'c'} text="week" />)
+						props.menuOption === 1 && ( props.days.length < 7 ? props.days.map((i, ind) => <Pill key={ind+'b'} text={i} />) :  <Pill key={'c'} text="week" />)
 					}
 				</ul>
 			</div>

@@ -2,8 +2,8 @@ import { ChevronDownIcon, ChevronUpIcon, Bars3Icon } from '@heroicons/react/24/o
 import { CheckBadgeIcon, MoonIcon } from '@heroicons/react/24/solid'
 import { Circle, Dot, Moon } from '@phosphor-icons/react'
 import { cn } from '../util/cn'
-import { useState } from 'react'
-import { getItem } from '../util/useStorage.js'
+import { useState, useEffect } from 'react'
+import { getItem, removeItem } from '../util/useStorage.js'
 import Pill from '../components/Pill'
 
 function Option(props){
@@ -55,6 +55,7 @@ export default function Header(props){
 	const menuOption = props.menuOption, setMenuOption = props.setMenuOption;
 	const [ toggleMenu, setToggleMenu ] = useState(false)
 	const [ tags, setTags ] = useState(getItem('tags'))
+	const [ darkMode, setDarkMode ] = useState(getItem('dark-mode'))
 
 	const date = new Date()
 	const today = `${date.getDate()} ${months[date.getMonth()].substring(0,3)}`
@@ -64,30 +65,37 @@ export default function Header(props){
 		percent = Math.floor((props.completedTasks.length / props.tasks.length) * 100)
 	}
 
+	useEffect(() => {
+		// if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+		if(darkMode){
+		  document.body.classList.add('dark')
+		} else {
+		  document.body.classList.remove('dark')
+		}
+
+		removeItem('dark-mode', darkMode)
+	}, [darkMode])
+
 	return (
 		<div className="relative flex flex-col items-center gap-3 w-full my-4">
-			<div className="flex items-left gap-4 w-full">
-				{/*<button 
-					className="p-2 pt-0"
+			<div className="flex items-center gap-4 w-full">
+				<button 
 					onClick={() => {
-						props.setToggleSideBar(true)
+						setDarkMode(!darkMode)
 					}}
 				>
-					<Bars3Icon className="w-6 h-6" />
-				</button>*/}
+					<Circle weight="fill" className="w-6 h-6" />
+				</button>
 				<h1 className="text-3xl font-bold leading-9 mr-auto">
 					{
 						(percent >= 100) ? 
-						<p className="flex items-center gap-1">
-							<CheckBadgeIcon className="w-6 h-6 " />
-							100%
-						</p>
+						'100%'
 						:
 						'Today'
 					}
 				</h1>
 				<button 
-					className={cn("flex items-center gap-3 p-2 px-4 bg-white border-2 rounded-lg w-fit", toggleMenu ? "border-black" : "")}
+					className={cn("flex items-center gap-3 p-2 px-4 bg-white dark:bg-gray-900 border-2 rounded-lg w-fit", toggleMenu ? "border-black dark:border-white" : "")}
 					onClick={() => {
 						setToggleMenu(!toggleMenu)
 				}}>
@@ -110,9 +118,9 @@ export default function Header(props){
 
 			<div className="flex items-center gap-4 w-full mx-auto">
 				<p>{today}</p>
-				<div className="w-24 h-1 rounded-full bg-gray-200 overflow-hidden">
+				<div className="w-24 h-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
 					<div 
-						className="h-1 bg-[black]" 
+						className="h-1 bg-black dark:bg-white rounded-full" 
 						style={{
 							width: percent + "%"
 						}}
@@ -128,7 +136,7 @@ export default function Header(props){
 				</ul>
 			}*/}
 			{
-				toggleMenu && <div className = "absolute right-0 top-[50%] mt-3 bg-[white] p-4 px-8 rounded-lg flex flex-col items-right gap-2 shadow-xl">
+				toggleMenu && <div className = "absolute right-0 top-[50%] mt-3 bg-white dark:bg-gray-900 p-4 px-8 rounded-lg flex flex-col items-right gap-2 shadow-xl dark:shadow-gray-800">
 					{
 						options.map(i => <Option key={i.text} {...i} menuOption={menuOption} setMenuOption={setMenuOption} setToggleMenu={setToggleMenu}/>)
 					}

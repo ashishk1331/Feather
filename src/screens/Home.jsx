@@ -31,7 +31,7 @@ export default function Home(props){
 	}, [props.completedTasks])
 
 	return (
-		<div className="p-4 px-6 pb-6 bg-white">
+		<div className="p-4 px-6 pb-6 bg-white dark:bg-gray-900 dark:text-white min-h-screen">
 			{
 				toggleSideBar && <SideBar 
 					setToggleSideBar={setToggleSideBar}
@@ -77,7 +77,7 @@ export default function Home(props){
 				</button>
 				:
 				<button
-					className="p-4 bg-black rounded-full text-white"
+					className="p-4 bg-black rounded-full dark:bg-neutral-100 text-white dark:text-black"
 					onClick={(e) => {
 						props.setShowAddForm(1)
 					}}
