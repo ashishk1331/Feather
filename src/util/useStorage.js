@@ -10,6 +10,10 @@ if(getItem('date') === null){
 	removeItem('date', [new Date().toJSON()])
 }
 
+if(getItem('completed') === null){
+	removeItem('completed', [])
+}
+
 // dev reset ->
 // localStorage.clear()
 

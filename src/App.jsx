@@ -13,8 +13,17 @@ export default function App(props){
 
     function deleteTasks(){
         if(selectedList.length > 0){
-            let newList = tasks.filter(i => !selectedList.includes(i.id))
+            let s = new Set(selectedList)
+
+            // compute completed list
+            let c = completedTasks.filter(i => !s.has(i))
+            setCompletedTasks(c)
+            removeItem('completed', [...c])
+
+            // compute new tasks
+            let newList = tasks.filter(i => !s.has(i.id))
             setTasks(newList)
+
             removeItem('tasks', newList)
             setSelectedList([])
         }

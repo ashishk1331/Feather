@@ -31,7 +31,7 @@ export default function Home(props){
 	}, [props.completedTasks])
 
 	return (
-		<div className="p-4 px-6 pb-6 bg-white dark:bg-gray-900 dark:text-white min-h-screen">
+		<div className="p-4 px-6 pb-6 bg-white dark:bg-gray-900 dark:text-white min-h-screen w-full">
 			{
 				toggleSideBar && <SideBar 
 					setToggleSideBar={setToggleSideBar}
@@ -47,21 +47,38 @@ export default function Home(props){
 			/>
 			<ul>
 			{
-				activeTasks.length > 0 ? activeTasks.map(i => 
+
+				(menuOption === 0) ? 
+				(
+					(activeTasks.length < 1) ?
+					<li className="w-full h-24 mt-24 flex">
+						<div className="m-auto flex flex-col gap-3 items-left text-xl text-gray-300">
+							<SparklesIcon className="w-8 h-8" />
+							<p>Add a new task</p>
+						</div>
+					</li>
+					:
+					activeTasks.map(i => 
 					<Task key={i.id} {...i} 
 						selectedList={props.selectedList} 
 						setSelectedList={props.setSelectedList} 
 						completedTasks={props.completedTasks}
 						setCompletedTasks={props.setCompletedTasks}
 						menuOption={menuOption}
-				/>)
+					/>)
+				)
+
 				:
-				<li className="w-full h-24 mt-24 flex">
-					<div className="m-auto flex flex-col gap-3 items-left text-xl text-gray-300">
-						<SparklesIcon className="w-8 h-8" />
-						<p>Add a new task</p>
-					</div>
-				</li>
+
+				props.tasks.map(i => 
+					<Task key={i.id} {...i} 
+						selectedList={props.selectedList} 
+						setSelectedList={props.setSelectedList} 
+						completedTasks={props.completedTasks}
+						setCompletedTasks={props.setCompletedTasks}
+						menuOption={menuOption}
+					/>)
+
 			}
 			</ul>
 

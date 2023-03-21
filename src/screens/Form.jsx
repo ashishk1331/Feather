@@ -90,6 +90,7 @@ export default function Form(props){
 							className="border-2 border-gray-300 dark:border-gray-800 bg-transparent text-lg w-full rounded-lg p-2 px-4" 
 							placeholder="type here..."
 						/>
+						<p className="w-fit mr-auto text-gray-400 dark:text-gray-700">Use @ to highlight words</p>
 					</label>
 					<div className="flex flex-col gap-1">
 						<p className="w-fit mr-auto">days</p>
