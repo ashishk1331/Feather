@@ -1,6 +1,5 @@
 import Header from '../components/Header'
 import Task from '../components/Task'
-import SideBar from '../components/SideBar'
 import { PlusSmallIcon, TrashIcon, PencilIcon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { SparklesIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
@@ -12,7 +11,6 @@ export default function Home(props){
 	const today = daysName[new Date().getDay()]
 	const [ menuOption, setMenuOption ] = useState(0)
 	const [ activeTasks, setActiveTasks ] = useState([])
-	const [ toggleSideBar, setToggleSideBar ] = useState(false)
 
 	function filterTasks(tasks){
 		let t = tasks.filter(i => i.days.includes(today))
@@ -32,18 +30,13 @@ export default function Home(props){
 
 	return (
 		<div className="p-4 px-6 pb-6 bg-white dark:bg-gray-900 dark:text-white min-h-screen w-full">
-			{
-				toggleSideBar && <SideBar 
-					setToggleSideBar={setToggleSideBar}
-				/>
-			}
 			<Header 
 				menuOption={menuOption}
 				setMenuOption={setMenuOption}
 				completedTasks={props.completedTasks}
 				tasks={activeTasks}
-				setToggleSideBar={setToggleSideBar}
 				alreadyCompleted={ activeTasks.length === getItem('completed').length }
+				setShowTagEditor={props.setShowTagEditor}
 			/>
 			<ul>
 			{
@@ -97,7 +90,7 @@ export default function Home(props){
 				<button
 					className="p-4 bg-black rounded-full dark:bg-neutral-100 text-white dark:text-black"
 					onClick={(e) => {
-						props.setShowAddForm(1)
+						props.setShowAddForm(true)
 					}}
 				>
 						<PlusIcon className="w-5 h-5" />

@@ -1,12 +1,14 @@
 import Home from './screens/Home'
 import Form from './screens/Form'
 import Splash from './screens/Splash'
+import TagEditor from './screens/TagEditor'
 import { getItem, setItem, removeItem } from './util/useStorage'
 import { useState, useEffect } from 'react'
 
 export default function App(props){
 
-    const [ showAddForm, setShowAddForm ] = useState(0);
+    const [ showAddForm, setShowAddForm ] = useState(false);
+    const [ showTagEditor, setShowTagEditor ] = useState(false)
     const [ tasks, setTasks ] = useState(getItem('tasks').filter(i => i.id !== undefined))
     const [ selectedList, setSelectedList ] = useState([]);
     const [ completedTasks, setCompletedTasks ] = useState(getItem('completed'))
@@ -50,9 +52,13 @@ export default function App(props){
                 deleteTasks={deleteTasks}
                 completedTasks={completedTasks}
                 setCompletedTasks={setCompletedTasks}
+                setShowTagEditor={setShowTagEditor}
             />
             {
-                showAddForm === 1 && <Form tasks={tasks} setTasks={setTasks} setShowAddForm={setShowAddForm} />
+                showAddForm && <Form tasks={tasks} setTasks={setTasks} setShowAddForm={setShowAddForm} />
+            }
+            {
+                showTagEditor && <TagEditor setShowTagEditor={setShowTagEditor} />
             }
         </>
     )

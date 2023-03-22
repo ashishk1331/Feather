@@ -1,5 +1,5 @@
 import { ChevronDownIcon, ChevronUpIcon, Bars3Icon } from '@heroicons/react/24/outline'
-import { CheckBadgeIcon, MoonIcon } from '@heroicons/react/24/solid'
+import { CheckBadgeIcon, MoonIcon, BookmarkSquareIcon } from '@heroicons/react/24/solid'
 import { Circle, Dot, Moon } from '@phosphor-icons/react'
 import { cn } from '../util/cn'
 import { useState, useEffect } from 'react'
@@ -101,6 +101,18 @@ export default function Header(props){
 						'Today'
 					}
 				</h1>
+
+				<button 
+					className="p-2"
+					onClick={() => {
+						props.setShowTagEditor(true)
+					}}
+				>
+					<BookmarkSquareIcon 
+						className="w-6 h-6 stroke-black dark:stroke-white" 
+					/>
+				</button>
+
 				<button 
 					className={cn("flex items-center gap-3 p-2 px-4 bg-white dark:bg-gray-900 border-2 rounded-lg w-fit", toggleMenu ? "border-black dark:border-white" : "")}
 					onClick={() => {

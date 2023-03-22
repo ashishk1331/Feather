@@ -11,7 +11,7 @@ function Toggler(props){
 	return (
 		<a 
 			href="#" 
-			className={cn("text-gray-300 border-2 dark:border-gray-800 p-2 px-4 rounded-lg", selected ? 'bg-black dark:bg-gray-500 border-black text-white dark:text-black' : '')}
+			className={cn("text-gray-300 border-2 dark:border-gray-800 p-2 px-4 rounded-lg", selected ? 'bg-black dark:bg-white border-black text-white dark:text-black' : '')}
 			onClick={() => {
 				setSelected(!selected)
 				props.click()
@@ -64,7 +64,7 @@ export default function Form(props){
 
 
 	return (
-		<div className="w-full h-full absolute inset-0 backdrop-blur-[2px] bg-gray-900/25">
+		<div className="w-full h-full absolute inset-0 backdrop-blur-[2px] bg-gray-900/25 dark:bg-gray-600/25">
 			<div className="w-full h-fit bg-white dark:bg-gray-900 dark:text-white absolute bottom-0 p-8 pt-4 flex flex-col items-center gap-3 rounded-t-2xl">
 				<button
 					className="p-3"
@@ -155,7 +155,7 @@ export default function Form(props){
 							{
 								tagsForm && <div className="w-full flex items-center gap-1 mt-3 dark:text-gray-600">
 									<a 
-										className="p-3" 
+										className="p-3 dark:text-white" 
 										href="#"
 										onClick={(e) => {
 											e.preventDefault();
@@ -167,12 +167,12 @@ export default function Form(props){
 									<input 
 										type="text" 
 										name="title"
-										className="border-2 border-gray-200 dark:border-gray-800 bg-transparent text-lg w-full rounded-lg p-1 px-4" 
+										className="border-2 border-gray-200 dark:border-gray-800 bg-transparent text-lg w-full rounded-lg p-1 px-4 dark:text-white" 
 										placeholder="type here..."
 										ref={tagFormInp}
 									/>
 									<a 
-										className="p-3" 
+										className="p-3 dark:text-white" 
 										href="#"
 										onClick={(e) => {
 											e.preventDefault();
