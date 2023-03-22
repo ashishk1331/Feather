@@ -50,7 +50,7 @@ export default function Task(props){
 				<h1 className={cn("text-lg", props.menuOption === 0 && finished ? 'line-through text-gray-500' : 'no-underline')}>
 					{props.title.split(' ').map((i, ind) => {
 						if(i.startsWith('@')){
-							return <p key={ind + '@'} className={cn("rounded dark:text-gray-900 px-[0.25em] inline-block font-medium mr-1", finished && props.menuOption === 0 ? "line-through px-0" : "bg-lime-200")}>{i.substring(1)}</p>
+							return <p key={ind + '@'} className={cn("rounded px-[0.25em] inline-block font-medium mr-1", finished && props.menuOption === 0 ? "line-through px-0" : "bg-lime-200 dark:text-gray-900")}>{i.substring(1)}</p>
 						}
 						return i + ' '
 					})}

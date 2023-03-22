@@ -51,7 +51,7 @@ export default function TagEditor(props){
 						e.preventDefault();
 						handleSubmit(e);
 					}}
-					className="flex items-center gap-2"
+					className="flex items-center gap-2 w-full"
 				>
 					<a 
 						className="p-3" 
