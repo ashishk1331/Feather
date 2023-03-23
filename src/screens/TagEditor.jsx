@@ -18,15 +18,8 @@ export default function TagEditor(props){
 
 	return (
 		<div className="w-full h-full absolute inset-0 backdrop-blur-[2px] bg-gray-900/25 dark:bg-gray-600/25">
-			<div className="w-full h-fit bg-white dark:bg-gray-900 dark:text-white absolute bottom-0 p-8 pt-4 flex flex-col items-center gap-3 rounded-t-2xl">
-				<button
-					className="p-3"
-					onClick={(e) => {
-						props.setShowTagEditor(false);
-					}}
-				>
-					<XCircleIcon className="w-8 h-8" />
-				</button>
+			<div className="w-full h-fit bg-white dark:bg-gray-900 dark:text-white absolute bottom-0 p-8 pt-8 flex flex-col items-center gap-3 rounded-t-2xl">
+				
 				<h1 className="text-3xl font-bold leading-9 mr-auto my-2">Adjust tags</h1>
 				{
 					tags.length > 0 && <ul className="w-full flex items-center flex-wrap gap-2">
@@ -88,6 +81,9 @@ export default function TagEditor(props){
 				<button 
 						type="submit" 
 						className="w-full bg-gray-900 dark:bg-gray-200 text-white dark:text-black p-4 mt-4 rounded-lg text-lg font-medium"
+						onClick={() => {
+							props.setShowTagEditor(false);
+						}}
 					>
 						Save
 					</button>
