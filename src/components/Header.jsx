@@ -1,5 +1,4 @@
-import { ChevronDownIcon, ChevronUpIcon, Bars3Icon } from '@heroicons/react/24/outline'
-import { CheckBadgeIcon, MoonIcon, BookmarkSquareIcon } from '@heroicons/react/24/solid'
+import { FolderArrowDownIcon, BookmarkIcon, FolderOpenIcon,Bars3Icon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Circle, Dot, Moon } from '@phosphor-icons/react'
 import { cn } from '../util/cn'
 import { useState, useEffect } from 'react'
@@ -66,7 +65,7 @@ export default function Header(props){
 	let percent = 0
 	if(props.tasks.length > 0){
 		percent = Math.floor((props.completedTasks.length / props.tasks.length) * 100)
-		if(percent >= 100 && !blasted && !props.alreadyCompleted){
+		if(percent >= 100 && !blasted && !props.alreadyCompleted && props.showSearch){
 			blast()
 			setBlasted(true)
 		}
@@ -86,76 +85,104 @@ export default function Header(props){
 	return (
 		<div className="relative flex flex-col items-center gap-3 w-full my-4">
 			<div className="flex items-center gap-4 w-full">
-				<button 
-					onClick={() => {
-						setDarkMode(!darkMode)
-					}}
-				>
-					<Circle weight="fill" className="w-6 h-6" />
-				</button>
-				<h1 className="text-3xl font-bold leading-9 mr-auto">
-					{
-						(percent >= 100) ? 
-						'100%'
-						:
-						'Today'
-					}
-				</h1>
+				{
+					props.showSearch && <>
+						<button 
+							onClick={() => {
+								setDarkMode(!darkMode)
+							}}
+						>
+							<Circle weight="fill" className="w-6 h-6" />
+						</button>
+						<h1 className="text-3xl font-bold leading-9 mr-auto">
+							{
+								(percent >= 100) ? 
+								'100%'
+								:
+								'Today'
+							}
+						</h1>
+					</>
+				}
 
-				<button 
+				<button
 					className="p-2"
 					onClick={() => {
-						props.setShowTagEditor(true)
+						props.setShowSearch(!props.showSearch)
 					}}
 				>
-					<BookmarkSquareIcon 
-						className="w-6 h-6 stroke-black dark:stroke-white" 
-					/>
+				{
+					props.showSearch ?
+					<MagnifyingGlassIcon className="w-6 h-6 stroke-black dark:stroke-white"  />
+					:
+					<XMarkIcon className="w-6 h-6 stroke-black dark:stroke-white" />
+				}
 				</button>
 
+				{
+					!props.showSearch && <input 
+						className="border-2 border-gray-200 dark:border-gray-800 bg-transparent text-lg w-full rounded-lg p-1 px-4" 
+						type="text"
+						value={props.searchText}
+						onChange={e => {
+							let v = e.target.value
+							props.setSearchText(v)
+							props.searchTask(v)
+						}}
+					 />
+				}
+
+				{	
+					props.showSearch && <>
+						<button 
+							className="p-2"
+							onClick={() => {
+								props.setShowTagEditor(true)
+							}}
+						>
+							<BookmarkIcon 
+								className="w-6 h-6 stroke-black dark:stroke-white" 
+							/>
+						</button>
+						
+					</>
+				}
 				<button 
-					className={cn("flex items-center gap-3 p-2 px-4 bg-white dark:bg-gray-900 border-2 rounded-lg w-fit", toggleMenu ? "border-black dark:border-white" : "")}
+					className={cn("p-2", toggleMenu ? "" : "")}
 					onClick={() => {
 						setToggleMenu(!toggleMenu)
 				}}>
-					<p className="w-max">
-						{
-							toggleMenu ?
-							"select"
-							:
-							options[menuOption].text
-						}
-					</p>
 					{
 						toggleMenu ?
-						<ChevronUpIcon />
+						<FolderOpenIcon className="w-6 h-6" />
 						:
-						<ChevronDownIcon />
+						<FolderArrowDownIcon className="w-6 h-6" />
 					}
 				</button>
-			</div>
-
-			<div className="flex items-center gap-4 w-full mx-auto">
-				<p>{today}</p>
-				<div className="w-24 h-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-					<div 
-						className="h-1 bg-black dark:bg-white rounded-full" 
-						style={{
-							width: percent + "%"
-						}}
-					/>
 				</div>
-				<p>{props.tasks.length > 0 ? props.completedTasks.length : 0} done</p>
-			</div>
-			{/*{
-				menuOption === 1 && <ul className="w-full flex items-center gap-3">
-					{
-						tags.map((i, ind) => <Pill text={i} />)
-					}
-				</ul>
-			}*/}
+		
 			{
-				toggleMenu && <div className = "absolute right-0 top-[50%] mt-3 bg-white dark:bg-gray-900 p-4 px-8 rounded-lg flex flex-col items-right gap-2 shadow-xl dark:shadow-gray-800">
+				props.showSearch ? <div className="flex items-center gap-4 w-full mx-auto">
+					<p>{today}</p>
+					<div className="w-24 h-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+						<div 
+							className="h-1 bg-black dark:bg-white rounded-full" 
+							style={{
+								width: percent + "%"
+							}}
+						/>
+					</div>
+					<p>{props.tasks.length > 0 ? props.completedTasks.length : 0} done</p>
+				</div>
+				:
+				<p className="mx-auto w-full text-sm">
+					Showing {props.tasks.length} tasks
+				</p>
+			}
+
+
+			{
+				toggleMenu && <div className = "absolute right-0 top-[50%] bg-white dark:bg-gray-900 p-4 px-8 rounded-lg flex flex-col items-right gap-2 shadow-xl dark:shadow-gray-800">
 					{
 						options.map(i => <Option key={i.text} {...i} menuOption={menuOption} setMenuOption={setMenuOption} setToggleMenu={setToggleMenu}/>)
 					}

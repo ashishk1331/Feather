@@ -11,17 +11,30 @@ export default function Home(props){
 	const today = daysName[new Date().getDay()]
 	const [ menuOption, setMenuOption ] = useState(0)
 	const [ activeTasks, setActiveTasks ] = useState([])
+	const [ showSearch, setShowSearch ] = useState(true)
+	const [ searchText, setSearchText ] = useState('')
 
 	function filterTasks(tasks){
 		let t = tasks.filter(i => i.days.includes(today))
 		return t
 	}
 
+	function searchTask(text){
+		setActiveTasks(props.tasks.filter(i => { 
+			return i.title.indexOf(text) > -1
+		}))
+	}
+
 	useEffect(() => {
 		if(props.tasks.length < 1){
 			props.setCompletedTasks([])
 		}
-		setActiveTasks(filterTasks(props.tasks))
+
+		if(props.menuOption === 0){
+			setActiveTasks(filterTasks(props.tasks))
+		} else {
+			setActiveTasks(props.tasks)
+		}
 	}, [menuOption, props.tasks])	
 
 	useEffect(() => {
@@ -37,41 +50,30 @@ export default function Home(props){
 				tasks={activeTasks}
 				alreadyCompleted={ activeTasks.length === getItem('completed').length }
 				setShowTagEditor={props.setShowTagEditor}
+				showSearch={showSearch}
+				setShowSearch={setShowSearch}
+				searchText={searchText}
+				setSearchText={setSearchText}
+				searchTask={searchTask}
 			/>
 			<ul>
 			{
-
-				(menuOption === 0) ? 
-				(
-					(activeTasks.length < 1) ?
-					<li className="w-full h-24 mt-24 flex">
-						<div className="m-auto flex flex-col gap-3 items-left text-xl text-gray-300">
-							<SparklesIcon className="w-8 h-8" />
-							<p>Add a new task</p>
-						</div>
-					</li>
-					:
-					activeTasks.map(i => 
-					<Task key={i.id} {...i} 
-						selectedList={props.selectedList} 
-						setSelectedList={props.setSelectedList} 
-						completedTasks={props.completedTasks}
-						setCompletedTasks={props.setCompletedTasks}
-						menuOption={menuOption}
-					/>)
-				)
-
+				(activeTasks.length < 1) ?
+				<li className="w-full h-24 mt-24 flex">
+					<div className="m-auto flex flex-col gap-3 items-left text-xl text-gray-300">
+						<SparklesIcon className="w-8 h-8" />
+						<p>Add a new task</p>
+					</div>
+				</li>
 				:
-
-				props.tasks.map(i => 
-					<Task key={i.id} {...i} 
-						selectedList={props.selectedList} 
-						setSelectedList={props.setSelectedList} 
-						completedTasks={props.completedTasks}
-						setCompletedTasks={props.setCompletedTasks}
-						menuOption={menuOption}
-					/>)
-
+				activeTasks.map(i => 
+				<Task key={i.id} {...i} 
+					selectedList={props.selectedList} 
+					setSelectedList={props.setSelectedList} 
+					completedTasks={props.completedTasks}
+					setCompletedTasks={props.setCompletedTasks}
+					menuOption={menuOption}
+				/>)
 			}
 			</ul>
 
