@@ -1,6 +1,6 @@
-import { CheckIcon } from '@heroicons/react/24/solid'
+import { CheckIcon, HeartIcon } from '@heroicons/react/24/solid'
 import { Circle } from "@phosphor-icons/react";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { cn } from '../util/cn'
 import { setItem } from '../util/useStorage'
 import Pill from '../components/Pill'
@@ -9,7 +9,10 @@ import Pill from '../components/Pill'
 export default function Task(props){
 
 	const [ finished, setFinished ] = useState(props.completedTasks.includes(props.id) && props.menuOption === 0)
-	const [ selected, setSelected ] = useState(props.selectedList.includes(props.id))
+	const [ selected, setSelected ] = useState(() => {
+		let s = new Set(props.selectedList)
+		return s.has(props.id)
+	})
 
 	function setComplete(id){
 		let s = new Set(props.completedTasks)
@@ -25,8 +28,13 @@ export default function Task(props){
 		props.setCompletedTasks([ ...s])
 	}
 
+	useEffect(() => {
+		let s = new Set(props.selectedList)
+		setSelected(s.has(props.id))
+	}, [props.selectedList])
+
 	return (
-		<li className={cn("flex items-center gap-2 w-full justify-between p-3 border-2  rounded-lg my-4", selected ? "border-black dark:border-white" : "dark:border-gray-800")}>
+		<li className={cn("relative flex items-center gap-2 w-full justify-between p-3 border-2 rounded-lg my-4", selected ? "border-black dark:border-white" : "dark:border-gray-800")}>
 			{
 				props.menuOption === 0 &&
 				<div 
@@ -65,7 +73,7 @@ export default function Task(props){
 				</ul>
 			</div>
 			<button 
-				className={cn('ml-auto',selected ? "p-1" : "p-3")}
+				className={cn('ml-auto',selected ? "p-1" : "p-2")}
 				onClick={(e) => {
 					setSelected(!selected)
 					let s = new Set(props.selectedList);
@@ -83,6 +91,11 @@ export default function Task(props){
 					className={cn(selected ? "w-6 h-6" : "w-3 h-3")} 
 				/>
 			</button>
+			{
+				props.liked && <div className={cn("p-2 rounded-full absolute -top-2 -left-2 bg-white dark:bg-gray-900 border-2 dark:border-gray-800", selected ? "border-black dark:border-white" : "dark:border-gray-800")}>
+					<HeartIcon />
+				</div>
+			}
 		</li>
 	)
 }

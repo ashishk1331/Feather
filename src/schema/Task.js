@@ -27,6 +27,7 @@ export function taskify(props){
 		createdAt: now,
 		days: props.days,
 		id: id,
+		liked: false,
 		type: 'task',
 		title: props.title,
 		tags: props.tags,

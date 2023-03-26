@@ -31,6 +31,32 @@ export default function App(props){
         }
     }
 
+    function likeTasks(){
+        if(selectedList.length > 0){
+            let s = new Set(selectedList)
+
+            let newList = tasks.map(i => {
+                if(s.has(i.id)){
+                    if(i.liked === undefined){
+                        i.liked = true
+                    } else{
+                        i.liked = !i.liked
+                    }
+                }
+                return i
+            })
+
+            removeItem('tasks', newList)
+            setTasks(newList)
+        }
+    }
+
+    function deSelect(){
+        if(selectedList.length > 0){
+            setSelectedList([])
+        }
+    }
+
     useEffect(() => {
         let t = new Date(getItem('date')[0])
         let n = new Date()
@@ -53,6 +79,8 @@ export default function App(props){
                 completedTasks={completedTasks}
                 setCompletedTasks={setCompletedTasks}
                 setShowTagEditor={setShowTagEditor}
+                likeTasks={likeTasks}
+                deSelect={deSelect}
             />
             {
                 showAddForm && <Form tasks={tasks} setTasks={setTasks} setShowAddForm={setShowAddForm} />

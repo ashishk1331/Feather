@@ -109,6 +109,7 @@ export default function Header(props){
 					className="p-2"
 					onClick={() => {
 						props.setShowSearch(!props.showSearch)
+						props.setSearchText('')
 					}}
 				>
 				{
@@ -182,7 +183,7 @@ export default function Header(props){
 
 
 			{
-				toggleMenu && <div className = "absolute right-0 top-[50%] bg-white dark:bg-gray-900 p-4 px-8 rounded-lg flex flex-col items-right gap-2 shadow-xl dark:shadow-gray-800">
+				toggleMenu && <div className = "absolute right-0 z-[1] top-[50%] bg-white dark:bg-gray-900 p-4 px-8 rounded-lg flex flex-col items-right gap-2 shadow-xl dark:shadow-gray-800">
 					{
 						options.map(i => <Option key={i.text} {...i} menuOption={menuOption} setMenuOption={setMenuOption} setToggleMenu={setToggleMenu}/>)
 					}
