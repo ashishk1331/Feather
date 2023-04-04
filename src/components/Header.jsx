@@ -6,7 +6,6 @@ import { getItem, removeItem } from '../util/useStorage.js'
 import { blast } from '../util/Confetti'
 import Pill from './Pill'
 
-
 function Option(props){
 
 	const active = props.menuOption === props.value
@@ -55,16 +54,16 @@ export default function Header(props){
 	];
 	const menuOption = props.menuOption, setMenuOption = props.setMenuOption;
 	const [ toggleMenu, setToggleMenu ] = useState(false)
-	const [ darkMode, setDarkMode ] = useState(getItem('dark-mode'))
+	const [ darkMode, setDarkMode ] = useState(getItem('dark-mode') || false)
 	const [ blasted, setBlasted ] = useState(false)
 
 	const date = new Date()
 	const today = `${date.getDate()} ${months[date.getMonth()].substring(0,3)}`
 
 	let percent = 0
-	if(props.tasks.length > 0){
+	if(props.state.tasks.length > 0){
 		percent = Math.floor(props.state.completedTasks.length / props.state.activeTasks.length * 100)
-		if(percent >= 100 && !blasted && !props.alreadyCompleted && props.showSearch){
+		if(percent >= 100 && !blasted && props.showSearch){
 			blast()
 			setBlasted(true)
 		}
@@ -104,7 +103,7 @@ export default function Header(props){
 					</>
 				}
 
-				<button
+				{/*<button
 					className="p-2"
 					onClick={() => {
 						props.setShowSearch(!props.showSearch)
@@ -117,7 +116,7 @@ export default function Header(props){
 					:
 					<XMarkIcon className="w-6 h-6 stroke-black dark:stroke-white" />
 				}
-				</button>
+				</button>*/}
 
 				{
 					!props.showSearch && <input 
@@ -129,6 +128,7 @@ export default function Header(props){
 							props.setSearchText(v)
 							props.searchTask(v)
 						}}
+						placeholder="type here..."
 					 />
 				}
 
@@ -166,13 +166,13 @@ export default function Header(props){
 					<p>{today}</p>
 					<div className="w-24 h-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
 						<div 
-							className="h-1 bg-black dark:bg-white rounded-full" 
+							className="h-1 bg-black dark:bg-white rounded-full transition-all duration-300" 
 							style={{
 								width: percent + "%"
 							}}
 						/>
 					</div>
-					<p>{props.state.completedTasks.size} done</p>
+					<p>{props.state.completedTasks.length} done</p>
 				</div>
 				:
 				<p className="mx-auto w-full text-sm">

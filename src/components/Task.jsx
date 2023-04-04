@@ -35,7 +35,7 @@ export default function Task(props){
 				</div>
 			}
 			<div className="w-full flex flex-col gap-2">
-				<h1 className={cn("text-lg mb-1", props.menuOption === 0 && finished ? 'line-through text-gray-500' : 'no-underline')}>
+				<h1 className={cn("text-lg mb-1", props.menuOption === 0 && finished ? 'line-through text-gray-500' : 'no-underline', props.menuOption === 1 && props.liked ? 'ml-5' : '')}>
 					{props.title.split(' ').map((i, ind) => {
 						if(i.startsWith('@')){
 							return <p key={ind + '@'} className={cn("rounded px-[0.25em] inline-block font-medium mr-1", finished && props.menuOption === 0 ? "line-through font-normal" : "bg-lime-200 dark:text-gray-900")}>{i.substring(1)}</p>

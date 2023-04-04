@@ -6,6 +6,10 @@ import { useState, useEffect } from 'react'
 import { getItem, setItem, removeItem } from '../util/useStorage'
 
 function TaskList(props){
+
+	const likedTasks = props.tasks.filter(i => i.liked)
+	const normalTasks = props.tasks.filter(i => !i.liked)
+
 	return (
 		<ul>
 			{
@@ -17,13 +21,22 @@ function TaskList(props){
 					</div>
 				</li>
 				:
-				props.tasks.map(i => {
+				[
+				...likedTasks.map(i => {
+						return <Task key={i.id} {...i}
+							state={props.state}
+							dispatch={props.dispatch}
+							menuOption={props.menuOption}
+						/>
+				}),
+				...normalTasks.map(i => {
 						return <Task key={i.id} {...i}
 							state={props.state}
 							dispatch={props.dispatch}
 							menuOption={props.menuOption}
 						/>
 				})
+				]
 			}
 		</ul>
 	)
@@ -54,9 +67,6 @@ export default function Home(props){
 
 				menuOption={menuOption}
 				setMenuOption={setMenuOption}
-				completedTasks={props.completedTasks}
-				tasks={props.menuOption === 0 ? props.state.activeTasks : props.state.tasks}
-				alreadyCompleted={ props.state.activeTasks.length === getItem('completed').length }
 				setShowTagEditor={props.setShowTagEditor}
 				showSearch={showSearch}
 				setShowSearch={setShowSearch}
