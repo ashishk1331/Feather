@@ -25,9 +25,7 @@ function Toggler(props){
 export default function Form(props){
 
 	const [ days, setDays ] = useState([false, false, false, false, false, false, false])
-	const [ tags, setTags ] = useState(getItem('tags'))
 	const [ activeTags, setActiveTags ] = useState([])
-	const daysName = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 	const [ tagsForm, setTagsForm ] = useState(false)
 	const tagFormInp = useRef();
 
@@ -42,24 +40,24 @@ export default function Form(props){
 		let taskDays = []
 		for(let i = 0; i < 7; i++){
 			if(days[i]){
-				taskDays.push(daysName[i])
+				taskDays.push(props.state.daysName[i])
 			}
 		}
 
 		if(taskDays.length < 1 || activeTags.length < 1){ return }
 
 		let task = taskify({
-			tasks: props.tasks,
+			tasks: props.state.tasks,
 			title: title,
 			tags: activeTags,
 			days: taskDays
 		})
 
-		props.setTasks([task, ...props.tasks])
-
-		props.setShowAddForm(0);
-
-		setItem('tasks', [task])
+		props.dispatch({
+			type: 'ADD_TASK',
+			value: task
+		})
+		props.setShowAddForm(false)
 	}
 
 
@@ -109,12 +107,12 @@ export default function Form(props){
 								}}
 							/>
 							{
-								daysName.map(i => <Toggler 
+								props.state.daysName.map(i => <Toggler 
 									key={i} 
 									text={i} 
-									selected={days[daysName.indexOf(i)]}
+									selected={days[props.state.daysName.indexOf(i)]}
 									click={() => {
-										let ind = daysName.indexOf(i);
+										let ind = props.state.daysName.indexOf(i);
 										days[ind] = !days[ind]
 										setDays(days)
 									}}
@@ -126,9 +124,10 @@ export default function Form(props){
 						<p className="w-fit mr-auto">tags</p>
 						<div className="flex flex-wrap items-start gap-2">
 							{
-								tags.map(i => <Toggler 
+								props.state.tags.map(i => <Toggler 
 									key={i} 
 									text={i} 
+									selected={activeTags.includes(i)}
 									click={() => {
 										if(activeTags.includes(i)){
 											setActiveTags(activeTags.filter(text => text !== i))
@@ -177,9 +176,11 @@ export default function Form(props){
 										onClick={(e) => {
 											e.preventDefault();
 											let tag = tagFormInp.current.value.toLowerCase()
-											// setActiveTags([tag, ...activeTags])
-											setItem('tags', [tag])
-											setTags([tag, ...tags])
+											setActiveTags([tag, ...activeTags])
+											props.dispatch({
+												type: 'ADD_TAG',
+												value: tag
+											})
 											tagFormInp.current.value = ''
 										}}
 									>

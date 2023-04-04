@@ -1,4 +1,4 @@
-import { FolderArrowDownIcon, BookmarkIcon, FolderOpenIcon,Bars3Icon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { FolderArrowDownIcon, BookmarkIcon, FolderOpenIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Circle, Dot, Moon } from '@phosphor-icons/react'
 import { cn } from '../util/cn'
 import { useState, useEffect } from 'react'
@@ -55,7 +55,6 @@ export default function Header(props){
 	];
 	const menuOption = props.menuOption, setMenuOption = props.setMenuOption;
 	const [ toggleMenu, setToggleMenu ] = useState(false)
-	const [ tags, setTags ] = useState(getItem('tags'))
 	const [ darkMode, setDarkMode ] = useState(getItem('dark-mode'))
 	const [ blasted, setBlasted ] = useState(false)
 
@@ -64,7 +63,7 @@ export default function Header(props){
 
 	let percent = 0
 	if(props.tasks.length > 0){
-		percent = Math.floor((props.completedTasks.length / props.tasks.length) * 100)
+		percent = Math.floor(props.state.completedTasks.length / props.state.activeTasks.length * 100)
 		if(percent >= 100 && !blasted && !props.alreadyCompleted && props.showSearch){
 			blast()
 			setBlasted(true)
@@ -149,7 +148,7 @@ export default function Header(props){
 					</>
 				}
 				<button 
-					className={cn("p-2", toggleMenu ? "" : "")}
+					className="p-2"
 					onClick={() => {
 						setToggleMenu(!toggleMenu)
 				}}>
@@ -173,7 +172,7 @@ export default function Header(props){
 							}}
 						/>
 					</div>
-					<p>{props.tasks.length > 0 ? props.completedTasks.length : 0} done</p>
+					<p>{props.state.completedTasks.size} done</p>
 				</div>
 				:
 				<p className="mx-auto w-full text-sm">

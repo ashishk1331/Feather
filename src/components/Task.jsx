@@ -8,30 +8,12 @@ import Pill from '../components/Pill'
 
 export default function Task(props){
 
-	const [ finished, setFinished ] = useState(props.completedTasks.includes(props.id) && props.menuOption === 0)
-	const [ selected, setSelected ] = useState(() => {
-		let s = new Set(props.selectedList)
-		return s.has(props.id)
-	})
-
-	function setComplete(id){
-		let s = new Set(props.completedTasks)
-		s.add(id)
-		props.setCompletedTasks([ ...s])
-	}
-
-	function setUncomplete(id){
-		let s = new Set(props.completedTasks)
-		if(s.has(id)){
-			s.delete(id)
-		}
-		props.setCompletedTasks([ ...s])
-	}
-
+	const [ finished, setFinished ] = useState(props.state.completedTasks.includes(props.id))
+	const [ selected, setSelected ] = useState(props.state.selectedTasks.includes(props.id))
+	
 	useEffect(() => {
-		let s = new Set(props.selectedList)
-		setSelected(s.has(props.id))
-	}, [props.selectedList])
+		setSelected(props.state.selectedTasks.includes(props.id))
+	}, [props.state.selectedTasks])
 
 	return (
 		<li className={cn("relative flex items-center gap-2 w-full justify-between p-3 border-2 rounded-lg my-4", selected ? "border-black dark:border-white" : "dark:border-gray-800")}>
@@ -40,13 +22,11 @@ export default function Task(props){
 				<div 
 					className={cn("w-7 min-w-7 min-h-7 h-7 aspect-square rounded border-2 border-black dark:border-white mx-3 cursor-pointer flex items-center", finished ? "bg-black text-white dark:bg-white dark:text-black" : "")}
 					onClick={(e) => {
-						let n = !finished;
-						setFinished(n)
-						if(n){
-							setComplete(props.id)
-						} else {
-							setUncomplete(props.id)
-						}
+						props.dispatch({
+							type: 'SET_TASK_DONE',
+							value: props.id
+						})
+						setFinished(!finished)
 					}}
 				>
 					{
@@ -55,7 +35,7 @@ export default function Task(props){
 				</div>
 			}
 			<div className="w-full flex flex-col gap-2">
-				<h1 className={cn("text-lg", props.menuOption === 0 && finished ? 'line-through text-gray-500' : 'no-underline')}>
+				<h1 className={cn("text-lg mb-1", props.menuOption === 0 && finished ? 'line-through text-gray-500' : 'no-underline')}>
 					{props.title.split(' ').map((i, ind) => {
 						if(i.startsWith('@')){
 							return <p key={ind + '@'} className={cn("rounded px-[0.25em] inline-block font-medium mr-1", finished && props.menuOption === 0 ? "line-through font-normal" : "bg-lime-200 dark:text-gray-900")}>{i.substring(1)}</p>
@@ -76,13 +56,10 @@ export default function Task(props){
 				className={cn('ml-auto',selected ? "p-1" : "p-2")}
 				onClick={(e) => {
 					setSelected(!selected)
-					let s = new Set(props.selectedList);
-					if(s.has(props.id)){
-						s.delete(props.id);
-					} else {
-						s.add(props.id)
-					}
-					props.setSelectedList([...s])
+					props.dispatch({
+						type: 'SELECT_TASK',
+						value: props.id
+					})
 				}}
 			>
 				<Circle 
