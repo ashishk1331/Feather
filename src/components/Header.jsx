@@ -103,7 +103,7 @@ export default function Header(props){
 					</>
 				}
 
-				{/*<button
+				<button
 					className="p-2"
 					onClick={() => {
 						props.setShowSearch(!props.showSearch)
@@ -116,7 +116,7 @@ export default function Header(props){
 					:
 					<XMarkIcon className="w-6 h-6 stroke-black dark:stroke-white" />
 				}
-				</button>*/}
+				</button>
 
 				{
 					!props.showSearch && <input 

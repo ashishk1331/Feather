@@ -1,9 +1,11 @@
 import Header from '../components/Header'
 import Task from '../components/Task'
+import Toast from '../components/Toast'
 import { PlusSmallIcon, TrashIcon, PencilIcon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { SparklesIcon, HeartIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
 import { getItem, setItem, removeItem } from '../util/useStorage'
+import { motion, AnimatePresence } from "framer-motion"
 
 function TaskList(props){
 
@@ -11,7 +13,8 @@ function TaskList(props){
 	const normalTasks = props.tasks.filter(i => !i.liked)
 
 	return (
-		<ul>
+		<motion.ul>
+		<AnimatePresence>
 			{
 				(props.tasks.length < 1) ?
 				<li className="w-full h-24 mt-24 flex">
@@ -38,7 +41,8 @@ function TaskList(props){
 				})
 				]
 			}
-		</ul>
+		</AnimatePresence>
+		</motion.ul>
 	)
 }
 
@@ -61,6 +65,7 @@ export default function Home(props){
 
 	return (
 		<div className="p-4 px-6 pb-6 bg-white dark:bg-gray-900 dark:text-white min-h-screen w-full">
+			{/*<Toast message="Hello world" />*/}
 			<Header 
 				state={props.state}
 				dispatch={props.dispatch}

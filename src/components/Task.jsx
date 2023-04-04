@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { cn } from '../util/cn'
 import { setItem } from '../util/useStorage'
 import Pill from '../components/Pill'
+import { motion } from 'framer-motion'
 
 
 export default function Task(props){
@@ -16,7 +17,9 @@ export default function Task(props){
 	}, [props.state.selectedTasks])
 
 	return (
-		<li className={cn("relative flex items-center gap-2 w-full justify-between p-3 border-2 rounded-lg my-4", selected ? "border-black dark:border-white" : "dark:border-gray-800")}>
+		<motion.li 
+		layoutId={props.id}
+		className={cn("relative flex items-center gap-2 w-full justify-between p-3 border-2 rounded-lg my-4 bg-white dark:bg-gray-900", selected ? "border-black dark:border-white" : "dark:border-gray-800")}>
 			{
 				props.menuOption === 0 &&
 				<div 
@@ -73,6 +76,6 @@ export default function Task(props){
 					<HeartIcon />
 				</div>
 			}
-		</li>
+		</motion.li>
 	)
 }

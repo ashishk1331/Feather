@@ -141,7 +141,7 @@ export default function App(props){
 
     return (
         <>
-            <Splash />
+            {/*<Splash />*/}
             <Home 
                 state={state}
                 dispatch={dispatch}
