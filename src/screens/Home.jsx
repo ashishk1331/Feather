@@ -51,17 +51,31 @@ export default function Home(props){
 	const [ menuOption, setMenuOption ] = useState(0)
 	const [ showSearch, setShowSearch ] = useState(true)
 	const [ searchText, setSearchText ] = useState('')
-
-	function filterTasks(tasks){
-		let t = tasks.filter(i => i.days.includes(today))
-		return t
-	}
+	const [ tasks, setTasks ] = useState([])
 
 	function searchTask(text){
-		setActiveTasks(props.tasks.filter(i => { 
-			return i.title.toLowerCase().indexOf(text.toLowerCase()) > -1
-		}))
+		if(menuOption === 0){
+			setTasks(props.state.activeTasks.filter(i => { 
+				return i.title.toLowerCase().indexOf(text.toLowerCase()) > -1
+			}))
+		} else {
+			setTasks(props.state.tasks.filter(i => { 
+				return i.title.toLowerCase().indexOf(text.toLowerCase()) > -1
+			}))
+		}
 	}
+
+	function setTasksAroundMenu(){
+		if(menuOption === 0){
+			setTasks(props.state.activeTasks)
+		} else {
+			setTasks(props.state.tasks)
+		}		
+	}
+
+	useEffect(() => {
+		setTasksAroundMenu()
+	}, [menuOption, showSearch])
 
 	return (
 		<div className="p-4 px-6 pb-6 bg-white dark:bg-gray-900 dark:text-white min-h-screen w-full">
@@ -69,6 +83,7 @@ export default function Home(props){
 			<Header 
 				state={props.state}
 				dispatch={props.dispatch}
+				tasks={tasks}
 
 				menuOption={menuOption}
 				setMenuOption={setMenuOption}
@@ -79,12 +94,7 @@ export default function Home(props){
 				setSearchText={setSearchText}
 				searchTask={searchTask}
 			/>
-			{
-				menuOption === 0 ?
-				<TaskList tasks={props.state.activeTasks} state={props.state} dispatch={props.dispatch} menuOption={menuOption} />
-				:
-				<TaskList tasks={props.state.tasks} state={props.state} dispatch={props.dispatch} menuOption={menuOption} />
-			}
+			<TaskList tasks={ tasks.length > 0 ? tasks : props.state.activeTasks } state={props.state} dispatch={props.dispatch} menuOption={menuOption} />			
 		</div>
 	)
 }

@@ -55,7 +55,6 @@ export default function App(props){
             case 'LIKE_TASK':
                 newList = prev.tasks.map(i => {
                     if(prev.selectedTasks.includes(i.id)){
-                        console.log(prev.selectedTasks)
                         if(i.liked === undefined){
                             i.liked = true
                         } else{
@@ -141,7 +140,7 @@ export default function App(props){
 
     return (
         <>
-            {/*<Splash />*/}
+            <Splash />
             <Home 
                 state={state}
                 dispatch={dispatch}
