@@ -55,7 +55,6 @@ export default function Header(props){
 	const menuOption = props.menuOption, setMenuOption = props.setMenuOption;
 	const [ toggleMenu, setToggleMenu ] = useState(false)
 	const [ darkMode, setDarkMode ] = useState(getItem('dark-mode') || false)
-	const [ blasted, setBlasted ] = useState(false)
 
 	const date = new Date()
 	const today = `${date.getDate()} ${months[date.getMonth()].substring(0,3)}`
@@ -63,9 +62,8 @@ export default function Header(props){
 	let percent = 0
 	if(props.state.tasks.length > 0){
 		percent = Math.floor(props.state.completedTasks.length / props.state.activeTasks.length * 100)
-		if(percent >= 100 && !blasted && props.showSearch){
+		if(percent >= 100 && props.showSearch && props.state.completedTasks.length === props.state.activeTasks.length){
 			blast()
-			setBlasted(true)
 		}
 	}
 

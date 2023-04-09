@@ -63,7 +63,7 @@ export default function Form(props){
 
 	return (
 		<div className="z-30 w-full h-full fixed inset-0 backdrop-blur-[2px] bg-gray-900/25 dark:bg-gray-600/25">
-			<div className="w-full h-fit bg-white dark:bg-gray-900 dark:text-white absolute bottom-0 p-8 pt-4 flex flex-col items-center gap-3 rounded-t-2xl">
+			<div className="w-full overflow-y-scroll h-fit bg-white dark:bg-gray-900 dark:text-white absolute bottom-0 p-8 pt-4 flex flex-col items-center gap-3 rounded-t-2xl">
 				<button
 					className="p-3"
 					onClick={(e) => {

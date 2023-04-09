@@ -15,7 +15,7 @@ export default function App(props){
         completedTasks: getItem('completed') || [],
         selectedTasks: [],
         tags: getItem('tags'),
-        daysName: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+        daysName: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
         today: new Date().getDay()
     }
 
@@ -132,7 +132,6 @@ export default function App(props){
             })
             removeItem('date', [n])
         }
-
         dispatch({
             type: 'SET_ACTIVE_TASKS'
         })
