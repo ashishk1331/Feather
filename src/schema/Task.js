@@ -30,7 +30,7 @@ export function taskify(props){
 		liked: false,
 		type: 'task',
 		title: props.title,
-		tags: props.tags,
+		tags: props.tags || [],
 		updatedAt: now
 	}
 }
