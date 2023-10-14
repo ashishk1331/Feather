@@ -3,7 +3,7 @@ import { Circle } from "@phosphor-icons/react";
 import { useState, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import Pill from "../components/Pill";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useStore } from "../util/useStore";
 import { format } from "date-fns";
 

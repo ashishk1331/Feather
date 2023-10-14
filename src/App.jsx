@@ -2,6 +2,7 @@ import { format, isPast } from "date-fns";
 import Home from "./screens/Home";
 import Form from "./screens/Form";
 import Splash from "./screens/Splash";
+import BigScreen from "./screens/BigScreen";
 import {
     PlusSmallIcon,
     TrashIcon,
@@ -42,6 +43,7 @@ export default function App(props) {
 
     return (
         <>
+            <BigScreen />
             <Splash />
             <Home
                 setShowAddForm={setShowAddForm}

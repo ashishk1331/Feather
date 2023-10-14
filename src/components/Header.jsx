@@ -104,7 +104,7 @@ export default function Header(props) {
 				<p>{today}</p>
 				<div className="w-24 h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
 					<div
-						className="h-full bg-slate-blue dark:bg-white rounded-full transition-all duration-300"
+						className="h-full bg-slate-blue rounded-full transition-all duration-300"
 						style={{
 							width: (percent || 0) + "%",
 						}}

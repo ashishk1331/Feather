@@ -26,6 +26,18 @@ function TaskList(props) {
 		tasks = all_tasks.filter((i) => i.days.includes(day))
 	}
 
+	let likedTasks = [], normalTasks = [];
+	for(let task of tasks){
+		if(task.liked){
+			likedTasks.push(task);
+		} else {
+			normalTasks.push(task);
+		}
+	}
+
+	likedTasks.push(...normalTasks);
+	tasks = likedTasks;
+
 	return (
 		<motion.ul>
 			<AnimatePresence>
