@@ -30,7 +30,7 @@ export const useStore = create(
 					if (prev.activeTasks.includes(task_id)) {
 						return {
 							activeTasks: prev.activeTasks.filter(
-								(id) => id !== task_id
+								(id) => id !== task_id,
 							),
 						};
 					}
@@ -51,7 +51,7 @@ export const useStore = create(
 			removeCompletedTask: (task_id) =>
 				set((prev) => ({
 					completedTasks: prev.completedTasks.filter(
-						(id) => id !== task_id
+						(id) => id !== task_id,
 					),
 				})),
 			resetCompletedTasks: () => set((prev) => ({ completedTasks: [] })),
@@ -63,7 +63,7 @@ export const useStore = create(
 					if (prev.selectedTasks.includes(task_id)) {
 						return {
 							selectedTasks: prev.selectedTasks.filter(
-								(id) => id !== task_id
+								(id) => id !== task_id,
 							),
 						};
 					}
@@ -71,7 +71,7 @@ export const useStore = create(
 						selectedTasks: [
 							task_id,
 							...prev.selectedTasks.filter(
-								(id) => id !== task_id
+								(id) => id !== task_id,
 							),
 						],
 					};
@@ -88,6 +88,10 @@ export const useStore = create(
 			daysName: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"],
 			date: null,
 			setDate: (date) => set((prev) => ({ date })),
+
+			// dark mode
+			darkMode: false,
+			setDarkMode: (darkMode) => set({ darkMode }),
 		}),
 		{
 			name: "feather-store",
@@ -95,7 +99,8 @@ export const useStore = create(
 				tags: state.tags,
 				completedTasks: state.completedTasks,
 				tasks: state.tasks,
+				darkMode: state.darkMode,
 			}),
-		}
-	)
+		},
+	),
 );

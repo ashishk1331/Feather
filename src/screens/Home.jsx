@@ -10,16 +10,21 @@ import {
 } from "@heroicons/react/24/outline";
 import { SparklesIcon, HeartIcon } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
-import { getItem, setItem, removeItem } from "../util/useStorage";
 import { useStore } from "../util/useStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
 
 function TaskList(props) {
+
 	let day = format(new Date(), "ccc").toLowerCase();
-	const tasks = useStore((state) =>
-		state.tasks.filter((i) => i.days.includes(day))
-	);
+	let all_tasks = useStore((state) => state.tasks);
+	let tasks = [];
+
+	if(Boolean(props.menuOption)){
+		tasks = all_tasks;
+	} else {
+		tasks = all_tasks.filter((i) => i.days.includes(day))
+	}
 
 	return (
 		<motion.ul>
@@ -92,7 +97,7 @@ export default function Home(props) {
 	}, [menuOption, showSearch]);
 
 	return (
-		<div className="p-4 px-6 pb-6 bg-white dark:bg-gray-900 dark:text-white min-h-screen w-full">
+		<div className="p-4 px-6 pb-6 bg-white dark:bg-zinc-900 dark:text-white min-h-screen w-full">
 			{/*<Toast message="Hello world" />*/}
 			<Header
 				state={props.state}
