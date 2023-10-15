@@ -1,4 +1,4 @@
-import { format, isPast } from "date-fns";
+import { format, isAfter } from "date-fns";
 import Home from "./screens/Home";
 import Form from "./screens/Form";
 import Splash from "./screens/Splash";
@@ -28,8 +28,10 @@ export default function App(props) {
     const [showAddForm, setShowAddForm] = useState(false);
     const [showTagEditor, setShowTagEditor] = useState(false);
 
+    const [count, setCount] = useState(0);
+
     useEffect(() => {
-        if (date && isPast(date)) {
+        if (date === null || (date && isAfter(new Date(date), new Date()))) {
             resetCompletedTasks();
             setDate(new Date().toJSON());
         }
@@ -57,7 +59,7 @@ export default function App(props) {
                             className="p-3 bg-red-500 rounded-full text-white"
                             onClick={(e) => {
                                 selectedTasks.forEach((task) =>
-                                    removeTask(task)
+                                    removeTask(task),
                                 );
                             }}
                         >
@@ -69,6 +71,7 @@ export default function App(props) {
                                 selectedTasks.forEach((task_id) => {
                                     likeTask(task_id);
                                 });
+                                setCount((prev) => (prev + 1) % 2);
                             }}
                         >
                             <HeartIcon className="w-6 h-6" />

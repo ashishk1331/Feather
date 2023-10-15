@@ -14,7 +14,7 @@ export default function Splash(props) {
 	return (
 		splashScreen && (
 			<div
-				className="z-30 w-screen h-screen fixed top-0 left-0 flex items-center bg-white dark:bg-zinc-900 dark:text-white z-[99]"
+				className="z-30 w-screen h-screen fixed top-0 left-0 flex items-center bg-white dark:bg-zinc-900 dark:text-white z-40"
 				exit={{ opacity: 0 }}
 				key="splashscreen"
 			>

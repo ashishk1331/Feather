@@ -80,7 +80,7 @@ export default function Form(props) {
 	return (
 		<div
 			id={outerDiv}
-			className="z-30 w-full h-full fixed inset-0 backdrop-blur-[2px] bg-neutral-900/25 dark:bg-neutral-800/25"
+			className="z-30 w-full h-full fixed inset-0 backdrop-blur-[2px] bg-zinc-900/25 dark:bg-zinc-800/25"
 			onClick={(e) => {
 				if (e.target.id === outerDiv) {
 					props.setShowAddForm(0);

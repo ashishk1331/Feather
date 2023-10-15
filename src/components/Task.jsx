@@ -9,7 +9,6 @@ import { format } from "date-fns";
 
 export default function Task(props) {
 	let createdAt = format(new Date(props.createdAt), "d MMM");
-
 	const completedTasks = useStore((state) => state.completedTasks);
 	const selectedTasks = useStore((state) => state.selectedTasks);
 	const setSelectedTasks = useStore((state) => state.setSelectedTasks);
@@ -37,9 +36,9 @@ export default function Task(props) {
 			{props.menuOption === 0 && (
 				<div
 					className={twMerge(
-						"w-7 min-w-7 min-h-7 h-7 aspect-square rounded border-2 border-black dark:border-white mx-3 cursor-pointer flex items-center",
+						"w-7 min-w-7 min-h-7 h-7 aspect-square rounded border-2 border-black dark:border-gray-800 mx-3 cursor-pointer flex items-center",
 						finished
-							? "bg-slate-blue text-white dark:bg-white dark:text-black"
+							? "bg-slate-blue text-white"
 							: "",
 					)}
 					onClick={(e) => {
@@ -52,7 +51,7 @@ export default function Task(props) {
 					}}
 				>
 					{finished && (
-						<CheckIcon className="m-auto stroke-1 stroke-white dark:stroke-black" />
+						<CheckIcon className="m-auto stroke-1 stroke-white" />
 					)}
 				</div>
 			)}

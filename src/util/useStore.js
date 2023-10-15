@@ -11,6 +11,9 @@ export const useStore = create(
 			removeTask: (task_id) =>
 				set((prev) => ({
 					tasks: prev.tasks.filter((task) => task.id !== task_id),
+					completedTasks: prev.completedTasks.filter(
+						(id) => id !== task_id,
+					),
 				})),
 			likeTask: function (task_id) {
 				return set((prev) => {
@@ -54,7 +57,8 @@ export const useStore = create(
 						(id) => id !== task_id,
 					),
 				})),
-			resetCompletedTasks: () => set((prev) => ({ completedTasks: [] })),
+			resetCompletedTasks: () =>
+				set((prev) => ({ completedTasks: [], activeTasks: [] })),
 
 			// selected tasks functions
 			selectedTasks: [],
@@ -100,6 +104,7 @@ export const useStore = create(
 				completedTasks: state.completedTasks,
 				tasks: state.tasks,
 				darkMode: state.darkMode,
+				date: state.date,
 			}),
 		},
 	),

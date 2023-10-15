@@ -38,30 +38,41 @@ function Option(props) {
 export default function Header(props) {
 	const tasks = useStore((state) => state.tasks);
 	const completedTasks = useStore((state) => state.completedTasks);
+	const removeCompletedTask = useStore((state) => state.removeCompletedTask);
+	const clearSelectedTasks = useStore((state) => state.clearSelectedTasks);
 
 	let day = format(new Date(), "ccc").toLowerCase();
 	let activeTasks = tasks.filter((i) => i.days.includes(day));
 	let cLength = completedTasks.length;
 	let aLength = activeTasks.length;
 
+	if (cLength > aLength) {
+		completedTasks.filter(
+			(id) =>
+				!(activeTasks.length > 1 &&
+				activeTasks.includes((task) => task.id === id))
+		).forEach(id => removeCompletedTask(id));
+	}
+
 	const menuOption = props.menuOption,
 		setMenuOption = props.setMenuOption;
 
 	const today = format(new Date(), "d MMM");
 
+	const [isBlasted, setIsBlasted] = useState(false);
+
 	let percent = 0;
 	if (aLength > 0) {
 		percent = Math.floor((cLength / aLength) * 100);
-		if (percent >= 95 && props.showSearch && cLength === aLength) {
+		if (percent >= 95 && props.showSearch && cLength === aLength && !isBlasted) {
 			blast();
+			setIsBlasted(true);
 		}
 	}
 
 	const d = useStore((state) => state.darkMode);
 	const setD = useStore((state) => state.setDarkMode);
 	const [darkMode, setDarkMode] = useState(d);
-
-	useEffect(() => setDarkMode(d), [d]);
 
 	useEffect(() => {
 		if (darkMode) {
@@ -88,6 +99,7 @@ export default function Header(props) {
 					className="p-2 relative"
 					onClick={() => {
 						setMenuOption((prev) => (prev + 1) % 2);
+						clearSelectedTasks()
 					}}
 				>
 					<WalletIcon className="w-6 h-6 dark:fill-neutral-800" />
