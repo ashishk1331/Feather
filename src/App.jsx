@@ -34,6 +34,8 @@ export default function App(props) {
         if (date === null || (date && !isAfter(new Date(date), new Date()))) {
             resetCompletedTasks();
             setDate(new Date().toJSON());
+            setCount((prev) => (prev + 1) % 2);
+
         }
         let day = format(new Date(), "ccc").toLowerCase();
         tasks.forEach((task) => {
