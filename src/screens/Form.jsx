@@ -15,7 +15,7 @@ function Toggler(props) {
 	return (
 		<Toggle.Root
 			aria-label={"Toggle " + props.text}
-			className="data-[state=on]:border-black data-[state=on]:bg-slate-blue data-[state=on]:text-white flex items-center justify-center rounded-lg leading-4 border-2 p-3 px-4 w-fill dark:border-neutral-800"
+			className="data-[state=on]:border-slate-blue data-[state=on]:bg-slate-blue data-[state=on]:text-white flex items-center justify-center rounded-lg leading-4 border-2 p-3 px-4 w-fill dark:border-neutral-800"
 			onPressedChange={(value) => props.onSelect(value)}
 		>
 			{props.text}
@@ -157,13 +157,13 @@ export default function Form(props) {
 									props.setShowAddForm(0);
 								}}
 								type="button"
-								className="w-full border-2 border-neutral-900 dark:border-neutral-800 text-neutral-900 dark:text-white p-4 mt-4 rounded-lg text-lg font-medium"
+								className="w-full border-2 border-neutral-800 text-neutral-900 dark:text-white p-4 mt-4 rounded-lg text-lg font-medium"
 							>
 								Close
 							</button>
 							<button
 								type="submit"
-								className="w-full bg-slate-blue border-2 border-neutral-900 text-white dark:text-black p-4 mt-4 rounded-lg text-lg font-medium"
+								className="w-full bg-slate-blue border-2 border-slate-blue text-white p-4 mt-4 rounded-lg text-lg font-medium"
 							>
 								Add
 							</button>

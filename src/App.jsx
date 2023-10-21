@@ -31,7 +31,7 @@ export default function App(props) {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        if (date === null || (date && isAfter(new Date(date), new Date()))) {
+        if (date === null || (date && !isAfter(new Date(date), new Date()))) {
             resetCompletedTasks();
             setDate(new Date().toJSON());
         }
