@@ -80,7 +80,7 @@ export default function Form(props) {
 	return (
 		<div
 			id={outerDiv}
-			className="z-30 w-full h-full fixed inset-0 backdrop-blur-[2px] bg-zinc-900/25 dark:bg-zinc-800/25"
+			className="z-30 w-full h-full fixed inset-0 backdrop-blur-[2px] bg-zinc-900/25 dark:bg-zinc-800/25 flex flex-col"
 			onClick={(e) => {
 				if (e.target.id === outerDiv) {
 					props.setShowAddForm(0);
@@ -92,7 +92,7 @@ export default function Form(props) {
 					initial={{ opacity: 0, y: 100 }}
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0 }}
-					className="w-full overflow-y-scroll h-fit bg-white dark:bg-zinc-900 dark:text-white absolute bottom-0 p-8 pt-4 flex flex-col items-center gap-3 rounded-t-2xl"
+					className="w-full h-fit bg-white dark:bg-zinc-900 dark:text-white translate-x-1/2 p-8 pt-4 flex flex-col items-center gap-3 rounded-t-2xl max-w-xl mx-auto mt-auto"
 				>
 					<form
 						className="w-full flex flex-col gap-6 mt-8"

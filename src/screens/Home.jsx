@@ -1,6 +1,5 @@
 import Header from "../components/Header";
 import Task from "../components/Task";
-import Toast from "../components/Toast";
 import {
 	PlusSmallIcon,
 	TrashIcon,
@@ -110,7 +109,6 @@ export default function Home(props) {
 
 	return (
 		<div className="p-4 px-6 pb-6 bg-white dark:bg-zinc-900 dark:text-white min-h-screen w-full">
-			{/*<Toast message="Hello world" />*/}
 			<Header
 				state={props.state}
 				dispatch={props.dispatch}

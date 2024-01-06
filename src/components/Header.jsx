@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import { useStore } from "../util/useStore";
 import { twMerge } from "tailwind-merge";
 import Pill from "./Pill";
+import { motion } from "framer-motion";
 
 function Option(props) {
 	const active = props.menuOption === props.value;
@@ -47,11 +48,15 @@ export default function Header(props) {
 	let aLength = activeTasks.length;
 
 	if (cLength > aLength) {
-		completedTasks.filter(
-			(id) =>
-				!(activeTasks.length > 1 &&
-				activeTasks.includes((task) => task.id === id))
-		).forEach(id => removeCompletedTask(id));
+		completedTasks
+			.filter(
+				(id) =>
+					!(
+						activeTasks.length > 1 &&
+						activeTasks.includes((task) => task.id === id)
+					),
+			)
+			.forEach((id) => removeCompletedTask(id));
 	}
 
 	const menuOption = props.menuOption,
@@ -64,7 +69,12 @@ export default function Header(props) {
 	let percent = 0;
 	if (aLength > 0) {
 		percent = Math.floor((cLength / aLength) * 100);
-		if (percent >= 95 && props.showSearch && cLength === aLength && !isBlasted) {
+		if (
+			percent >= 95 &&
+			props.showSearch &&
+			cLength === aLength &&
+			!isBlasted
+		) {
 			blast();
 			setIsBlasted(true);
 		}
@@ -82,6 +92,17 @@ export default function Header(props) {
 		}
 	}, [darkMode]);
 
+	const DAYS = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	];
+	const TODAY = DAYS[new Date().getDay()];
+
 	return (
 		<div className="relative flex flex-col items-center gap-3 w-full my-4">
 			<div className="flex items-center gap-4 w-full">
@@ -94,12 +115,14 @@ export default function Header(props) {
 				>
 					<Circle weight="fill" className="w-6 h-6 fill-slate-blue" />
 				</button>
-				<h1 className="text-3xl font-bold leading-9 mr-auto">Today</h1>
+				<h1 className="text-3xl font-bold leading-9 mr-auto">
+					{TODAY}
+				</h1>
 				<button
 					className="p-2 relative"
 					onClick={() => {
 						setMenuOption((prev) => (prev + 1) % 2);
-						clearSelectedTasks()
+						clearSelectedTasks();
 					}}
 				>
 					<WalletIcon className="w-6 h-6 dark:fill-neutral-800" />
